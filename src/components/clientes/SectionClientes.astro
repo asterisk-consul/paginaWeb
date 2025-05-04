@@ -1,0 +1,46 @@
+---
+import DonAndres from "./DonAndres.astro";
+import GM from "./GM.astro";
+import Praba from "./Praba.astro";
+---
+
+<div
+  class="bg-[#faf5ec] text-ine py-10 min-h-[85vh] flex flex-col
+  items-center justify-center text-center px-4"
+>
+  <h2
+    class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#181925] font-bold mb-25"
+  >
+    Quienes confian en nosotros
+  </h2>
+  <div
+    class="flex flex-wrap gap-16 justify-center items-center text-center w-full max-w-screen-xl mx-auto"
+  >
+    <a
+      href="https://donandresgroup.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="w-64 h-64 flex items-center justify-center opacity-60 hover:opacity-100 hover:scale-110 transition duration-300"
+    >
+      <DonAndres />
+    </a>
+
+    <a
+      href="https://www.facebook.com/giraudomuebles/?locale=es_LA"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="w-64 h-64 flex items-center justify-center opacity-60 hover:opacity-100 hover:scale-110 transition duration-300"
+    >
+      <GM />
+    </a>
+
+    <a
+      href="https://pulverizadorespraba.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="w-64 h-64 flex items-center justify-center opacity-60 hover:opacity-100 hover:scale-110 transition duration-300"
+    >
+      <Praba />
+    </a>
+  </div>
+</div>

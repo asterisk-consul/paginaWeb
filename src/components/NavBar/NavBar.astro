@@ -1,18 +1,59 @@
 ---
-// components/Navbar.astro
 import NavbarLogo from "./NavbarLogo.astro";
 import NavbarButtons from "./NavbarButtons.astro";
 import NavbarLinks from "./NavbarLinks.astro";
+import NavbarToggleTheme from "./NavBarToggleTheme.astro";
 ---
 
 <nav
-  class="bg-[#faf5ec] dark:bg-[#181925] fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600"
+  id="navbar"
+  class="bg-transparent border-transparent fixed w-full z-20 top-0 start-0 transition-all duration-300"
 >
   <div
     class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
   >
     <NavbarLogo />
-    <NavbarButtons />
     <NavbarLinks />
+    <NavbarToggleTheme />
+
+    <NavbarButtons />
   </div>
 </nav>
+
+<script is:inline>
+  if (typeof window !== "undefined") {
+    const navbar = document.getElementById("navbar");
+    const navbarLinks = document.getElementById("navbar-links");
+
+    const updateNavbar = () => {
+      const scrolled = window.scrollY > 50;
+
+      if (scrolled) {
+        navbar.classList.add(
+          "bg-[#faf5ec]",
+          "dark:bg-[#181925]",
+          "border-b",
+          "border-gray-200",
+          "dark:border-gray-600"
+        );
+        navbar.classList.remove("bg-transparent", "border-transparent");
+
+        navbarLinks?.classList.add("bg-white/90", "dark:bg-[#181925]");
+      } else {
+        navbar.classList.remove(
+          "bg-[#faf5ec]",
+          "dark:bg-[#181925]",
+          "border-b",
+          "border-gray-200",
+          "dark:border-gray-600"
+        );
+        navbar.classList.add("bg-transparent", "border-transparent");
+
+        navbarLinks?.classList.remove("bg-white/90", "dark:bg-[#181925]");
+      }
+    };
+
+    window.addEventListener("scroll", updateNavbar);
+    updateNavbar();
+  }
+</script>

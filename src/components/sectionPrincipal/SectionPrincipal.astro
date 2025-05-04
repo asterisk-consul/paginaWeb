@@ -1,0 +1,37 @@
+---
+// src/components/HeroWithBackground.astro
+import type { ImageMetadata } from "astro";
+import foto1 from "../../assets/foto1.webp";
+---
+
+<div class="relative h-screen w-full">
+  <!-- Imagen de fondo -->
+  <img
+    src={foto1.src}
+    alt="Descripción de la imagen"
+    class="absolute inset-0 h-full w-full object-cover object-center"
+    width={foto1.width}
+    height={foto1.height}
+    loading="eager"
+  />
+
+  <!-- Capa oscura para mejorar legibilidad (opcional) -->
+  <div class="absolute inset-0 bg-black/30"></div>
+
+  <!-- Contenido superpuesto -->
+  <div
+    class="relative z-10 flex h-full flex-col items-center justify-center text-center text-white"
+  >
+    <h1 class="mb-6 text-4xl font-bold md:text-6xl">Conta con nosotros</h1>
+    <p class="mb-8 max-w-2xl text-xl md:text-2xl">
+      Si tienes alguna duda o consulta, no dudes en contactarnos. Estamos aqui
+      para ayudarte.
+    </p>
+    <a
+      href="/contacto"
+      class="rounded-lg bg-blue-600 px-8 py-3 text-lg font-semibold transition hover:bg-blue-700"
+    >
+      Contactar Ahora
+    </a>
+  </div>
+</div>
