@@ -1,0 +1,62 @@
+---
+// components/PerfilCard.astro
+import Linkedin from "../icons/Linkedin.astro";
+import Instagram from "../icons/Instagram.astro";
+
+const { imgSrc, name, role, description, instagram, linkedin } = Astro.props;
+---
+
+<div
+  class="group relative block bg-[#181925] overflow-hidden rounded-lg shadow-lg"
+>
+  <img
+    alt={name}
+    src={imgSrc}
+    class="absolute inset-0 h-full w-full object-cover opacity-75 transition-opacity group-hover:opacity-50"
+  />
+  <div
+    class="absolute inset-0 bg-gradient-to-b from-[#e63605] to-transparent opacity-0 group-hover:opacity-70 transition-opacity duration-700 ease-in-out pointer-events-none"
+  >
+  </div>
+
+  <div class="relative p-4 sm:p-6 lg:p-8 z-10">
+    <p class="text-lg font-bold tracking-widest text-[#181525] uppercase">
+      {role}
+    </p>
+    <p class="text-xl font-bold text-white sm:text-2xl">{name}</p>
+
+    <div class="mt-32 sm:mt-48 lg:mt-64">
+      <div
+        class="translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100"
+      >
+        <p class="text-2xl text-white mb-4">{description}</p>
+        <div class="flex gap-4">
+          {
+            linkedin && (
+              <a
+                href={linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-white hover:text-blue-400 transition"
+              >
+                <Linkedin />
+              </a>
+            )
+          }
+          {
+            instagram && (
+              <a
+                href={instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-white hover:text-pink-400 transition"
+              >
+                <Instagram />
+              </a>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,20 +4,21 @@ import SectionServicios from "@/components/servicios/SectionServicio.astro";
 import SectionPrincipal from "@/components/sectionPrincipal/SectionPrincipal.astro";
 import Layout from "../layouts/Layout.astro";
 import SectionClientes from "@/components/clientes/SectionClientes.astro";
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import About from "@/components/about/About.astro";
+import Equipo from "@/components/equipo/Equipo.astro";
+import Formulario from "@/components/form/Formulario.astro";
+import CarrouselPrincipal from "@/components/sectionPrincipal/CarrouselPrincipal.astro";
 ---
 
-<Layout>
-  <section class="h-fit">
-    <SectionPrincipal />
-  </section>
-  <section class="h-fit bg-[#faf5ec] p-10">
-    <SectionClientes />
-  </section>
-  <section class="h-fit bg-[#faf5ec] p-10">
-    <SectionServicios />
-  </section>
+<Layout
+  title="Asterisk"
+  description="Asterisk es una consultora de servicios empresariales, que ofrece soluciones innovadoras y eficientes para optimizar la productividad de empresas. Entre ellas, ofrecemos servicios de gestión de proyectos y desarrollo de software."
+>
+  <CarrouselPrincipal />
+  <About />
+  <SectionClientes />
   <PreFooter />
+  <SectionServicios id="servicios" />
+  <Equipo />
+  <Formulario />
 </Layout>

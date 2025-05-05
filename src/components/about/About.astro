@@ -1,0 +1,79 @@
+---
+// Si usás íconos personalizados o de una librería, podés importarlos acá
+
+import CalendarClockOutline from "./icon/CalendarClockOutline.astro";
+import CardValores from "./CardValores.astro";
+import Chartline from "./icon/Chartline.astro";
+import Handshake from "./icon/Handshake.astro";
+import AccountGroupOutline from "./icon/AccountGroupOutline.astro";
+import LightbulbOutline from "./icon/LightbulbOutline.astro";
+---
+
+<section
+  id="about"
+  class="bg-[#faf5ec] text-[#181925] py-16 px-4 flex items-stretch flex-col md:flex-row p-10"
+>
+  <div class="w-full md:w-1/2">
+    <img
+      class="h-full w-full object-cover rounded-2xl"
+      src="./about.webp"
+      alt="Sobre nosotros"
+    />
+  </div>
+  <div class="w-full md:w-1/2 flex flex-col justify-center px-4">
+    <h2 class="text-5xl md:text-7xl font-bold mb-8 text-center tracking-wide">
+      Sobre Nosotros
+    </h2>
+    <h2 class="text-2xl md:text-3xl font-bold mb-4">Nuestra Misión</h2>
+    <p class="max-w-3xl mx-auto text-lg mb-12">
+      Impulsamos el desarrollo sostenible de empresas que buscan optimizar su
+      productividad mediante una gestión eficiente. Aplicamos metodologías
+      ágiles, saludables y orgánicas, integrando tecnologías innovadoras
+      adaptadas a cada necesidad.
+    </p>
+
+    <h2 class="text-2xl md:text-3xl font-bold mb-4">Visión</h2>
+    <p class="max-w-3xl mx-auto text-lg mb-12">
+      Ser reconocidos como la consultora líder en transformación digital en la
+      región, modernizando procesos y generando impacto sostenible en la
+      eficiencia de nuestros clientes.
+    </p>
+
+    <h2 class="text-2xl md:text-3xl font-bold mb-4">Nuestros Valores</h2>
+    <div class="flex flex-col gap-4 max-w-6xl mx-auto text-left">
+      <CardValores
+        title="Criterio y mejora continua"
+        description="Priorizamos proyectos alineados con nuestra visión, enfocados en elcrecimiento a largo plazo."
+      >
+        <Chartline />
+      </CardValores>
+
+      <CardValores
+        title="Compromiso y transparencia"
+        description="Actuamos con honestidad y comunicación clara, generando confianza y relaciones sólidas."
+      >
+        <Handshake />
+      </CardValores>
+      <CardValores
+        title="Relación a largo plazo"
+        description="Buscamos construir alianzas duraderas con foco en la evolución y el acompañamiento constante."
+      >
+        <CalendarClockOutline />
+      </CardValores>
+
+      <CardValores
+        title="Trabajo en equipo"
+        description="Fomentamos la colaboración entre todos los actores para lograr los mejores resultados."
+      >
+        <AccountGroupOutline />
+      </CardValores>
+
+      <CardValores
+        title="Innovación y creatividad"
+        description="Buscamos nuevas tecnologías y enfoques creativos para impulsar la transformación."
+      >
+        <LightbulbOutline />
+      </CardValores>
+    </div>
+  </div>
+</section>
