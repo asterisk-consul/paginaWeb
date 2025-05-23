@@ -2,7 +2,7 @@
 import "../styles/global.css";
 import Footer from "../components/Footer/Footer.astro";
 import NavBar from "@/components/NavBar/NavBar.astro";
-
+import WhatsAppButton from "@/components/WhatsAppButton.astro";
 const { title, description } = Astro.props;
 ---
 
@@ -20,6 +20,7 @@ const { title, description } = Astro.props;
       <NavBar />
     </header>
     <slot />
+    <WhatsAppButton />
     <footer>
       <Footer />
     </footer>
