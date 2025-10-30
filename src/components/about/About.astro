@@ -1,6 +1,7 @@
 ---
 // Si usás íconos personalizados o de una librería, podés importarlos acá
-
+import { Image } from "astro:assets";
+import about from "../../../public/about.webp";
 import CalendarClockOutline from "./icon/CalendarClockOutline.astro";
 import CardValores from "./CardValores.astro";
 import Chartline from "./icon/Chartline.astro";
@@ -14,10 +15,12 @@ import LightbulbOutline from "./icon/LightbulbOutline.astro";
   class="bg-[#faf5ec] text-[#181925] py-16 px-4 flex items-stretch flex-col md:flex-row p-10"
 >
   <div class="w-full md:w-1/2">
-    <img
+    <Image
       class="h-full w-full object-cover rounded-2xl"
-      src="./about.webp"
+      src={about}
+      format="webp"
       alt="Sobre nosotros"
+      loading="eager"
     />
   </div>
   <div class="w-full md:w-1/2 flex flex-col justify-center px-4">

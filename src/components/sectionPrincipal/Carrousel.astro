@@ -1,0 +1,160 @@
+---
+import Item1 from "./Item1.astro";
+import Item2 from "./Item2.astro";
+import Item3 from "./Item3.astro";
+---
+
+<div id="carousel-example" class="relative w-full h-full">
+  <!-- Carousel wrapper -->
+  <div class="relative h-full overflow-hidden">
+    <!-- Item 1 -->
+    <div id="carousel-item-1" class="hidden duration-700 ease-in-out">
+      <Item1 />
+    </div>
+    <!-- Item 2 -->
+    <div id="carousel-item-2" class="hidden duration-700 ease-in-out">
+      <Item2 />
+    </div>
+    <div id="carousel-item-3" class="hidden duration-700 ease-in-out">
+      <Item3 />
+    </div>
+    <!-- Item 3 -->
+  </div>
+  <!-- Slider indicators -->
+  <div
+    class="absolute bottom-5 left-1/2 z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse"
+  >
+    <button
+      id="carousel-indicator-1"
+      class="w-3 h-3 rounded-full bg-gray-300 aria-[current=true]:bg-[#e63605] aria-[current=true]:w-5 transition-colors duration-500"
+      aria-current="true"
+      aria-label="Slide 1"></button>
+    <button
+      id="carousel-indicator-2"
+      class="w-3 h-3 rounded-full bg-gray-300 aria-[current=true]:bg-[#e63605] aria-[current=true]:w-5 transition-colors duration-500"
+      aria-current="false"
+      aria-label="Slide 2"></button>
+    <button
+      id="carousel-indicator-3"
+      class="w-3 h-3 rounded-full bg-gray-300 aria-[current=true]:bg-[#e63605] aria-[current=true]:w-5 transition-colors duration-500"
+      aria-current="false"
+      aria-label="Slide 3"></button>
+  </div>
+  <!-- Slider controls -->
+  <button
+    id="data-carousel-prev"
+    type="button"
+    class="group absolute left-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
+  >
+    <span
+      class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70"
+    >
+      <svg
+        class="h-4 w-4 text-white dark:text-gray-800"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 6 10"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 1 1 5l4 4"></path>
+      </svg>
+      <span class="hidden">Previous</span>
+    </span>
+  </button>
+  <button
+    id="data-carousel-next"
+    type="button"
+    class="group absolute right-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
+  >
+    <span
+      class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70"
+    >
+      <svg
+        class="h-4 w-4 text-white dark:text-gray-800"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 6 10"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="m1 9 4-4-4-4"></path>
+      </svg>
+      <span class="hidden">Next</span>
+    </span>
+  </button>
+</div>
+<script>
+  import { Carousel } from "flowbite";
+  import type {
+    CarouselItem,
+    CarouselOptions,
+    CarouselInterface,
+  } from "flowbite";
+  import type { InstanceOptions } from "flowbite";
+
+  const carouselElement = document.getElementById("carousel-example");
+  if (!carouselElement) throw new Error("Carousel element not found");
+
+  const items: CarouselItem[] = [
+    { position: 0, el: document.getElementById("carousel-item-1")! },
+    { position: 1, el: document.getElementById("carousel-item-2")! },
+    { position: 2, el: document.getElementById("carousel-item-3")! },
+  ];
+
+  const options: CarouselOptions = {
+    defaultPosition: 1,
+    interval: 7000,
+    indicators: {
+      activeClasses: "bg-white dark:bg-gray-800",
+      inactiveClasses:
+        "bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800",
+      items: [
+        { position: 0, el: document.getElementById("carousel-indicator-1")! },
+        { position: 1, el: document.getElementById("carousel-indicator-2")! },
+        { position: 2, el: document.getElementById("carousel-indicator-3")! },
+      ],
+    },
+    onNext: () => console.log("next slider item is shown"),
+    onPrev: () => console.log("previous slider item is shown"),
+    onChange: () => console.log("new slider item has been shown"),
+  };
+
+  // instance options object
+  const instanceOptions: InstanceOptions = {
+    id: "carousel-example",
+    override: true,
+  };
+
+  const carousel: CarouselInterface = new Carousel(
+    carouselElement,
+    items,
+    options,
+    instanceOptions
+  );
+
+  carousel.cycle();
+
+  carouselElement.addEventListener("mouseenter", () => {
+    console.log("mouse enter");
+    carousel.pause();
+  });
+
+  carouselElement.addEventListener("mouseleave", () => {
+    carousel.cycle();
+  });
+
+  const $prevButton = document.getElementById("data-carousel-prev");
+  const $nextButton = document.getElementById("data-carousel-next");
+
+  $prevButton?.addEventListener("click", () => carousel.prev());
+  $nextButton?.addEventListener("click", () => carousel.next());
+</script>

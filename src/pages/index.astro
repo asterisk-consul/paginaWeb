@@ -1,24 +1,16 @@
 ---
 import PreFooter from "@/components/PreFooter/PreFooter.astro";
 import SectionServicios from "@/components/servicios/SectionServicio.astro";
-import SectionPrincipal from "@/components/sectionPrincipal/SectionPrincipal.astro";
-import Layout from "../layouts/Layout.astro";
+import Layout from "../layouts/BaseLayout.astro";
 import SectionClientes from "@/components/clientes/SectionClientes.astro";
 import About from "@/components/about/About.astro";
 import Equipo from "@/components/equipo/Equipo.astro";
 import Formulario from "@/components/form/Formulario.astro";
 import CarrouselPrincipal from "@/components/sectionPrincipal/CarrouselPrincipal.astro";
+import Carrousel from "@/components/sectionPrincipal/Carrousel.astro";
 ---
 
 <Layout
   title="Asterisk"
   description="Asterisk es una consultora de servicios empresariales, que ofrece soluciones innovadoras y eficientes para optimizar la productividad de empresas. Entre ellas, ofrecemos servicios de gestión de proyectos y desarrollo de software."
->
-  <CarrouselPrincipal />
-  <About />
-  <SectionClientes />
-  <PreFooter />
-  <SectionServicios id="servicios" />
-  <Equipo />
-  <Formulario id="contacto" />
-</Layout>
+/>

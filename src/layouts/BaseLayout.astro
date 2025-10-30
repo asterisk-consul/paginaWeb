@@ -1,7 +1,11 @@
 ---
+interface Props {
+  title: string;
+  description: string;
+}
 import "../styles/global.css";
 import Footer from "../components/Footer/Footer.astro";
-import NavBar from "@/components/NavBar/NavBar.astro";
+import NavBar from "@/components/NavBar/NavBar.vue";
 import WhatsAppButton from "@/components/WhatsAppButton.astro";
 const { title, description } = Astro.props;
 ---
@@ -17,7 +21,7 @@ const { title, description } = Astro.props;
   </head>
   <body>
     <header>
-      <NavBar />
+      <NavBar client:only="vue" />
     </header>
     <slot />
     <WhatsAppButton />

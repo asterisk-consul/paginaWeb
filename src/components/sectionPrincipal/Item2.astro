@@ -1,56 +1,55 @@
 ---
-// src/components/HeroWithBackground.astro
-import foto1 from "../../assets/foto1.webp";
+import { Image } from "astro:assets";
+import foto2 from "../../assets/foto2.webp";
 ---
 
-<section id="home" class="h-screen w-full animated-section">
-  <div class="relative h-screen w-full">
-    <!-- Imagen de fondo -->
-    <img
-      src={foto1.src}
-      alt="Descripción de la imagen"
-      class="absolute inset-0 h-full w-full object-cover object-center"
-      width={foto1.width}
-      height={foto1.height}
-      loading="eager"
-    />
+<div
+  class="absolute block w-full h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+>
+  <!-- Imagen de fondo -->
+  <Image
+    src={foto2}
+    format="webp"
+    alt="Descripción de la imagen"
+    class="absolute inset-0 h-full w-full object-cover object-center"
+    loading="eager"
+  />
 
-    <!-- Degradado circular desde la esquina superior derecha -->
-    <div
-      class="absolute inset-0 bg-gradient-radial from-transparent via-black/70 to-black/0"
-    >
-    </div>
-
-    <!-- Contenido posicionado abajo a la izquierda -->
-    <div
-      class="relative z-10 flex h-full flex-col items-start justify-end text-left text-white px-8 pb-16 md:px-16 md:pb-24"
-    >
-      <h1
-        class="mb-6 text-4xl font-bold md:text-6xl animate-item"
-        data-animation="fade-in-up"
-        data-delay="100"
-      >
-        Conta con nosotros
-      </h1>
-      <p
-        class="mb-8 max-w-2xl text-xl md:text-2xl animate-item"
-        data-animation="fade-in-up"
-        data-delay="300"
-      >
-        Si tienes alguna duda o consulta, no dudes en contactarnos. Estamos aqui
-        para ayudarte.
-      </p>
-      <a
-        href="#contacto"
-        class="animate-item rounded-lg border-2 border-[#e63605] bg-transparent px-8 py-3 text-2xl font-semibold transition hover:bg-[#e63605] hover:text-[#faf5ec] focus:outline-none focus:ring-4 focus:ring-[#b0121e] dark:text-[#e63605] dark:hover:bg-[#e63605] dark:hover:text-[#faf5ec] dark:focus:ring-[#b0121e]"
-        data-animation="fade-in-up"
-        data-delay="300"
-      >
-        Contactar Ahora
-      </a>
-    </div>
+  <!-- Degradado circular desde la esquina superior derecha -->
+  <div
+    class="absolute inset-0 bg-gradient-radial from-transparent via-black/70 to-black/0"
+  >
   </div>
-</section>
+
+  <!-- Contenido posicionado abajo a la izquierda -->
+  <div
+    class="relative z-10 flex h-full flex-col items-start justify-end text-left text-white px-8 pb-16 md:px-16 md:pb-24"
+  >
+    <h1
+      class="mb-6 text-4xl font-bold md:text-6xl animate-ite"
+      data-animation="fade-in-up"
+      data-delay="100"
+    >
+      Tomá decisiones inteligentes<br /> con datos reales
+    </h1>
+    <p
+      class="mb-8 max-w-2xl text-xl md:text-2xl animate-item"
+      data-animation="fade-in-up"
+      data-delay="300"
+    >
+      Herramientas que transforman tu gestión: indicadores clave, costos reales
+      y trazabilidad completa para una empresa escalable y eficiente.
+    </p>
+    <a
+      href="#contacto"
+      class="animate-item rounded-lg border-2 border-[#e63605] hover:border-[#e63605] hover:bg-transparent px-8 py-3 text-2xl font-semibold transition bg-[#e63605] text-[#faf5ec] focus:outline-none focus:ring-4 focus:ring-[#b0121e] dark:hover:text-[#faf5ec] dark:bg-[#e63605] dark:text-[#faf5ec] dark:focus:ring-[#b0121e] hover:scale-110"
+      data-animation="fade-in-up"
+      data-delay="300"
+    >
+      Quiero controlar mis costos
+    </a>
+  </div>
+</div>
 
 <style>
   /* Definición del gradiente radial para navegadores que lo soporten */
@@ -75,17 +74,17 @@ import foto1 from "../../assets/foto1.webp";
   }
 
   /* Estilos iniciales para elementos animados */
-  .animate-item {
+  /* .animate-item {
     opacity: 0;
-  }
+  } */
 
   /* Las clases de animación se añadirán por JavaScript */
-  .animate-item.active[data-animation="fade-in-up"] {
+  /* .animate-item.active[data-animation="fade-in-up"] {
     animation: fadeInUp 1s ease-out forwards;
-  }
+  } */
 </style>
 
-<script is:inline>
+<!-- <script is:inline>
   function setupAnimations() {
     // Seleccionamos todas las secciones animadas
     const animatedSections = document.querySelectorAll(".animated-section");
@@ -155,4 +154,4 @@ import foto1 from "../../assets/foto1.webp";
       setupAnimations();
     }, 100);
   });
-</script>
+</script> -->

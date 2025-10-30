@@ -1,0 +1,56 @@
+---
+import { Image } from "astro:assets";
+import foto1 from "../../assets/foto1.webp";
+---
+
+<div
+  class="absolute block w-full h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+>
+  <!-- Imagen de fondo -->
+  <Image
+    src={foto1}
+    format="webp"
+    alt="Descripción de la imagen"
+    class="absolute inset-0 object-cover object-center"
+    loading="eager"
+  />
+
+  <!-- Degradado circular desde la esquina superior derecha -->
+  <div
+    class="absolute inset-0 bg-gradient-radial from-transparent via-black/70 to-black/0"
+  >
+  </div>
+
+  <!-- Contenido posicionado abajo a la izquierda -->
+  <div
+    class="relative z-10 flex h-full flex-col items-start justify-end text-left text-white px-8 pb-16 md:px-16 md:pb-24"
+  >
+    <h1 class="mb-6 text-4xl font-bold md:text-6xl animate-ite">
+      ¿Tus procesos siguen <br /> siendo lentos a pesar<br /> de la tecnología?
+    </h1>
+    <p class="mb-8 max-w-2xl text-xl md:text-2xl animate-item">
+      En <span class="font-bold text-[#e63605]">Asterisk Consultora</span>,
+      combinamos conocimiento en software con experiencia en gestión real.
+      Ordenamos, automatizamos y mejoramos los procesos de tu empresa para
+      lograr eficiencia, trazabilidad y resultados concretos.
+    </p>
+    <a
+      href="#contacto"
+      class="animate-item rounded-lg border-2 border-[#e63605] hover:border-[#e63605] hover:bg-transparent px-8 py-3 text-2xl font-semibold transition bg-[#e63605] text-[#faf5ec] focus:outline-none focus:ring-4 focus:ring-[#b0121e] dark:hover:text-[#faf5ec] dark:bg-[#e63605] dark:text-[#faf5ec] dark:focus:ring-[#b0121e] hover:scale-110"
+    >
+      Quiero mejorar mis procesos
+    </a>
+  </div>
+</div>
+
+<style>
+  /* Definición del gradiente radial para navegadores que lo soporten */
+  .bg-gradient-radial {
+    background: radial-gradient(
+      circle at top right,
+      transparent,
+      rgba(0, 0, 0, 0.4) 50%,
+      rgba(0, 0, 0, 0.7) 100%
+    );
+  }
+</style>
