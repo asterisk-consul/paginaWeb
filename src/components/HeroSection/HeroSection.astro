@@ -1,0 +1,89 @@
+---
+import { ArrowRight } from "lucide-astro";
+import "aos/dist/aos.css";
+---
+
+<section class="py-20 md:py-32">
+  <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+    <!-- Texto principal -->
+    <div class="text-center md:text-left">
+      <h1
+        class="font-family-tight font-regular text-6xl md:text-8xl leading-[1.03] tracking-tighter text-balance mb-4"
+        data-aos="fade-up"
+      >
+        Digitaliza y Optimiza
+        <span
+  class="text-transparent bg-clip-text bg-linear-to-r/longer from-indigo-500 to-teal-400 italic"
+>
+  tus Procesos
+</span>
+
+      </h1>
+
+      <p
+        class="text-xl md:text-2xl text-foreground/80 mb-8s"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        Transformamos tus operaciones manuales en flujos de trabajo digitales,
+        dándote el control y los datos para tomar decisiones estratégicas.
+      </p>
+
+      <!-- Botón interactivo -->
+      <a
+        id="cta-btn"
+        href="#servicios"
+        class="inline-flex items-center gap-2 bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold py-3 px-8 rounded-lg text-lg shadow-md transition-all duration-300"
+        data-aos="fade-up"
+        data-aos-delay="400"
+      >
+        Descubre Cómo
+        <ArrowRight class="w-5 h-5" />
+      </a>
+    </div>
+
+    <!-- Imagen ilustrativa -->
+    <div class="hidden md:block" data-aos="zoom-in" data-aos-delay="300">
+      <img
+        src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop"
+        alt="Dashboard con gráficos y analíticas de negocio"
+        class="rounded-2xl shadow-2xl shadow-brand-secondary/20 object-cover w-full h-full"
+        loading="lazy"
+      />
+    </div>
+  </div>
+</section>
+
+<!-- Script ligero: se carga sólo en el cliente -->
+<script  >
+  import AOS from "aos";
+  import { animate } from "@motionone/dom";
+
+  // Inicializar AOS al cargar
+  AOS.init({
+    duration: 800,
+    once: true,
+    offset: 100,
+  });
+
+  // Animación del botón con Motion One
+  const btn = document.querySelector("#cta-btn");
+  if (btn) {
+    btn.addEventListener("mouseenter", () =>
+      animate(btn, { scale: 1.05 }, { duration: 0.3 })
+    );
+    btn.addEventListener("mouseleave", () =>
+      animate(btn, { scale: 1 }, { duration: 0.3 })
+    );
+  }
+</script>
+
+<style>
+  section {
+    overflow: hidden;
+  }
+
+  #cta-btn:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+</style>

@@ -24,12 +24,9 @@ const navLinks = [
     <nav
       class="container mx-auto px-10 py-3.5 flex justify-between items-center"
     >
-      <a href="/" class="flex items-center space-x-2">
+      <a href="/" class="group flex items-center space-x-2">
         <div
-          v-motion
-          :initial="{ rotate: 0 }"
-          :hovered="{ rotate: 90 }"
-          class="w-8 h-8"
+          class="w-8 h-8 transition-transform duration-300 ease-in-out group-hover:rotate-90"
         >
           <Logo class="w-full h-full text-primary" size="2rem" />
         </div>

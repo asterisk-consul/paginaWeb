@@ -4,47 +4,52 @@ import FacebookIcon from "../icons/FacebookIcon.astro";
 import Linkedin from "../icons/Linkedin.astro";
 import GitHub from "../icons/GitHub.astro";
 import XIcon from "../icons/XIcon.astro";
+
+// Podés pasar las redes por props o definirlas acá:
+const redes = [
+  {
+    href: "https://www.facebook.com/profile.php?id=61576737593364",
+    label: "Facebook",
+    icon: FacebookIcon,
+    size: "w-4 h-4"
+  },
+  {
+    href: "https://discord.gg/YAHHs7gr",
+    label: "Discord",
+    icon: DiscordIcon,
+    size: "w-4 h-4"
+  },
+  {
+    href: "https://x.com/AsteriskConsul",
+    label: "X (Twitter)",
+    icon: XIcon,
+    size: "w-4 h-4"
+  },
+  {
+    href: "https://github.com/asterisk-consul",
+    label: "GitHub",
+    icon: GitHub,
+    size: "w-5 h-5"
+  },
+  {
+    href: "https://www.linkedin.com/in/asterisk-consultora-626240367/",
+    label: "LinkedIn",
+    icon: Linkedin,
+    size: "w-4 h-4"
+  }
+];
 ---
 
 <div class="flex items-center mt-4 sm:justify-center sm:mt-0">
-  <a
-    target="_blank"
-    href="https://www.facebook.com/profile.php?id=61576737593364"
-    class="text-gray-500 hover:text-gray-900 dark:hover:text-white"
-  >
-    <FacebookIcon />
-    <span class="sr-only">Facebook page</span>
-  </a>
-  <a
-    target="_blank"
-    href="https://discord.gg/YAHHs7gr"
-    class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
-  >
-    <DiscordIcon />
-    <span class="sr-only">Discord community</span>
-  </a>
-  <a
-    target="_blank"
-    href="https://x.com/AsteriskConsul"
-    class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
-  >
-    <XIcon size={"w-4 h-4"} />
-    <span class="sr-only">Twitter page</span>
-  </a>
-  <a
-    target="_blank"
-    href="https://github.com/asterisk-consul"
-    class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
-  >
-    <GitHub size={"w-5 h-5"} />
-    <span class="sr-only">GitHub account</span>
-  </a>
-  <a
-    target="_blank"
-    href="https://www.linkedin.com/in/asterisk-consultora-626240367/"
-    class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
-  >
-    <Linkedin size={"w-4 h-4"} />
-    <span class="sr-only">Linkedin page</span>
-  </a>
+  {redes.map(({ href, label, icon: Icon, size }, i) => (
+    <a
+      target="_blank"
+      href={href}
+      class={`text-foreground/50 hover:text-primary ${i > 0 ? 'ms-5' : ''}`}
+      title={label}
+    >
+      <Icon size={size} />
+      <span class="sr-only">{label}</span>
+    </a>
+  ))}
 </div>
