@@ -1,0 +1,190 @@
+---
+import { Sun, Moon, Menu, X } from "lucide-astro";
+import LogoAsterisk from "../LogoAsteris.astro";
+const navLinks = [
+  { to: "/nosotros", text: "Nosotros" },
+  { to: "/blog", text: "Blog" },
+  { to: "/#servicios", text: "Servicios" },
+];
+---
+
+<header
+  class="bg-card/80 backdrop-blur-sm sticky top-0 z-40 border-b transition-colors h-14 md:h-16"
+>
+  <nav class="container mx-auto px-10 py-3.5 flex justify-between items-center">
+    <!-- LOGO -->
+    <a href="/" class="group flex items-center space-x-2">
+      <div
+        class="w-8 h-8 transition-transform duration-300 ease-in-out group-hover:rotate-90"
+      >
+        <LogoAsterisk class="w-full h-full text-primary" />
+      </div>
+      <span class="text-2xl text-foreground font-family-sans font-medium"
+        >Asterisk</span
+      >
+    </a>
+    <!-- DESKTOP MENU -->
+    <div
+      class="hidden md:flex items-center space-x-4 font-family-tight font-medium text-sm"
+    >
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.to}
+            class="text-muted-foreground hover:text-primary transition-colors"
+          >
+            {link.text}
+          </a>
+        ))
+      }
+      <!-- THEME TOGGLE -->
+      <button
+        id="theme-toggle"
+        class="relative w-14 h-7 rounded-full bg-gray-300 dark:bg-gray-400 flex items-center px-1 cursor-pointer transition-colors"
+        aria-label="Cambiar tema"
+      >
+        <span
+          id="theme-thumb"
+          class="w-5 h-5 bg-white dark:bg-gray-600 rounded-full flex items-center justify-center shadow-md transform transition-transform duration-300"
+        >
+          <Sun class="w-3 h-3 text-background sun-icon" />
+          <Moon class="w-3 h-3 text-foreground moon-icon" />
+        </span>
+      </button>
+      <a
+        href="/#contacto"
+        class="btn btn-primary font-family-tight text-sm py-1.5 px-2.5"
+      >
+        Contáctanos
+      </a>
+    </div>
+    <!-- MOBILE MENU BUTTON -->
+    <div class="md:hidden flex items-center gap-2">
+      <button id="mobile-theme-toggle">
+        <Sun class="w-5 h-5 mobile-sun block" />
+        <Moon class="w-5 h-5 mobile-moon hidden" />
+      </button>
+      <button id="menu-toggle" class="text-foreground">
+        <Menu class="w-6 h-6 block" id="menu-icon" />
+        <X class="w-6 h-6 hidden" id="close-icon" />
+      </button>
+    </div>
+  </nav>
+  <!-- MOBILE MENU -->
+  <div id="mobile-menu" class="hidden md:hidden bg-card border-t">
+    <div class="flex flex-col items-center space-y-4 py-4">
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.to}
+            class="text-muted-foreground hover:text-primary transition-colors"
+          >
+            {link.text}
+          </a>
+        ))
+      }
+      <a href="/#contacto" class="btn btn-primary">Contáctanos</a>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (() => {
+    const THEME_KEY = "app-theme";
+    const html = document.documentElement;
+
+    // Función para obtener tema actual
+    const getTheme = () => {
+      const saved = localStorage.getItem(THEME_KEY);
+      return (
+        saved ||
+        (window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light")
+      );
+    };
+
+    // Función para cambiar tema
+    const toggleTheme = () => {
+      const current = getTheme();
+      const newTheme = current === "dark" ? "light" : "dark";
+      html.setAttribute("data-theme", newTheme);
+      localStorage.setItem(THEME_KEY, newTheme);
+      return newTheme;
+    };
+
+    // Inicializar tema
+    html.setAttribute("data-theme", getTheme());
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const thumb = document.getElementById("theme-thumb");
+      const sun = thumb?.querySelector(".sun-icon");
+      const moon = thumb?.querySelector(".moon-icon");
+      const mobileSun = document.querySelector(".mobile-sun");
+      const mobileMoon = document.querySelector(".mobile-moon");
+
+      const updateUI = (isDark) => {
+        if (!thumb) return;
+
+        // Remover ambas clases primero
+        thumb.classList.remove("translate-x-0", "translate-x-7");
+        // Agregar la correcta
+        thumb.classList.add(isDark ? "translate-x-7" : "translate-x-0");
+
+        // Iconos desktop
+        if (sun && moon) {
+          sun.classList.toggle("hidden", isDark);
+          sun.classList.toggle("block", !isDark);
+          moon.classList.toggle("hidden", !isDark);
+          moon.classList.toggle("block", isDark);
+        }
+
+        // Iconos mobile
+        if (mobileSun && mobileMoon) {
+          mobileSun.classList.toggle("hidden", isDark);
+          mobileSun.classList.toggle("block", !isDark);
+          mobileMoon.classList.toggle("hidden", !isDark);
+          mobileMoon.classList.toggle("block", isDark);
+        }
+      };
+
+      // Inicializar UI con el tema actual
+      const currentTheme = getTheme();
+      updateUI(currentTheme === "dark");
+
+      // Toggle
+      const handleToggle = () => updateUI(toggleTheme() === "dark");
+      document
+        .getElementById("theme-toggle")
+        ?.addEventListener("click", handleToggle);
+      document
+        .getElementById("mobile-theme-toggle")
+        ?.addEventListener("click", handleToggle);
+
+      // Menú móvil
+      const menuBtn = document.getElementById("menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const menuIcon = document.getElementById("menu-icon");
+      const closeIcon = document.getElementById("close-icon");
+
+      menuBtn?.addEventListener("click", () => {
+        const isHidden = mobileMenu?.classList.toggle("hidden");
+        menuIcon?.classList.toggle("hidden", !isHidden);
+        menuIcon?.classList.toggle("block", isHidden);
+        closeIcon?.classList.toggle("hidden", isHidden);
+        closeIcon?.classList.toggle("block", !isHidden);
+      });
+
+      // Escuchar cambios del sistema
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", (e) => {
+          if (!localStorage.getItem(THEME_KEY)) {
+            const newTheme = e.matches ? "dark" : "light";
+            html.setAttribute("data-theme", newTheme);
+            updateUI(newTheme === "dark");
+          }
+        });
+    });
+  })();
+</script>
