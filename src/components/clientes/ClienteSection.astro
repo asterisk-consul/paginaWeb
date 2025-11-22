@@ -1,0 +1,96 @@
+---
+import Donandres from "./DonAndres.astro";
+import GM from "./GM.astro";
+import Praba from "./Praba.astro";
+import Alona from "./Alona.astro";
+
+const clients = [
+  { name: "Donandres", logo: Donandres, url: "#" },
+  { name: "GM Muebles", logo: GM, url: "#" },
+  { name: "Praba", logo: Praba, url: "#" },
+  { name: "Aloña", logo: Alona, url: "#" },
+];
+---
+
+<div class="py-16 bg-dark-bg overflow-hidden">
+  <div class="container mx-auto px-6">
+    <h3
+      class="text-center text-foreground text-3xl md:text-4xl font-light font-family-tight uppercase tracking-wider mb-10"
+    >
+      Con la confianza de empresas innovadoras
+    </h3>
+
+    <div class="relative w-full overflow-hidden">
+      <div id="logo-track" class="flex gap-[100px]">
+        {
+          clients.map((client) => (
+            <a
+              href={client.url}
+              class="logo-item flex justify-center items-center flex-shrink-0"
+              style="width: 100px;"
+              title={client.name}
+            >
+              {typeof client.logo === "string" ? (
+                <img
+                  src={client.logo}
+                  alt={client.name}
+                  class="h-8 w-auto opacity-60 hover:opacity-100 transition-opacity"
+                  loading="lazy"
+                />
+              ) : (
+                <client.logo class="h-8 w-auto opacity-60 hover:opacity-100 transition-opacity" />
+              )}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { animate } from "motion";
+
+  const track = document.getElementById("logo-track") as HTMLElement;
+  if (track instanceof HTMLElement) {
+    const logoItems = Array.from(track.children);
+
+    // Calcular ancho total de un set de logos (150px + 100px gap) * cantidad
+    const itemWidth = 100 + 100; // width + gap
+    const totalWidth = itemWidth * logoItems.length;
+
+    // Clonar logos suficientes veces para llenar el viewport + extra
+    const clonesNeeded = Math.ceil(window.innerWidth / totalWidth) + 2;
+
+    for (let i = 0; i < clonesNeeded; i++) {
+      logoItems.forEach((item) => {
+        const clone = item.cloneNode(true);
+        track.appendChild(clone);
+      });
+    }
+
+    // Animar con Motion One
+    const animation = animate(
+      track,
+      {
+        x: [`0px`, `-${totalWidth}px`],
+      },
+
+      {
+        duration: 30, // segundos
+        repeat: Infinity,
+        easing: "linear",
+      }
+    );
+
+    // Pausar al hover
+    track.addEventListener("mouseenter", () => animation.pause());
+    track.addEventListener("mouseleave", () => animation.play());
+  }
+</script>
+
+<style>
+  #logo-track {
+    display: flex;
+  }
+</style>
