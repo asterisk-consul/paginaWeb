@@ -1,23 +1,46 @@
 ---
-import MultipleCardServicio from "./MultipleCardServicio.astro";
+import { DatabaseZap, Workflow, BarChart3 } from 'lucide-astro';
+
+const services = [
+  {
+    icon: DatabaseZap,
+    title: 'Digitalización de Procesos',
+    description: 'Convertimos tus flujos de trabajo manuales en sistemas digitales eficientes, centralizando tu información.',
+  },
+  {
+    icon: Workflow,
+    title: 'Plataforma de Gestión Flow',
+    description: 'Nuestra plataforma te permite administrar, visualizar y controlar todos tus procesos desde un único lugar.',
+  },
+  {
+    icon: BarChart3,
+    title: 'Análisis y Visualización',
+    description: 'Extraemos insights valiosos de tus datos para que puedas tomar decisiones informadas y estratégicas.',
+  },
+];
 ---
 
-<section id="servicios" class="h-fit bg-[#faf5ec] p-10">
-  <div class="text-center w-[90%] max-w-7xl mx-auto px-4 py-12 bg-light">
-    <h2
-      class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#181925] font-bold mb-5"
-    >
-      Nuestros Servicios
-    </h2>
-    <p
-      class="text-lg sm:text-xl md:text-2xl text-[#181925] tracking-wide font-light mb-10"
-    >
-      Ofrecemos soluciones personalizadas y de alta calidad diseñadas para
-      superar tus expectativas. A diferencia de otras opciones genéricas, nos
-      enfocamos en resultados reales, adaptándonos a tus necesidades específicas
-      para garantizar tu éxito.
-    </p>
-
-    <MultipleCardServicio />
-  </div>
-</section>
+<section id="servicios" class="py-20 bg-dark-card">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Soluciones para la Toma de Decisiones</h2>
+        <p class="text-lg text-gray-400 max-w-3xl mx-auto">Desde la captura del dato hasta la decisión final, te damos las herramientas para el éxito.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div 
+          v-for="(service, index) in services" 
+          :key="service.title"
+          class="bg-dark-bg p-8 rounded-xl border border-dark-border hover:border-brand-primary transition-all duration-300 transform hover:-translate-y-2"
+          v-motion
+          :initial="{ opacity: 0, y: 50 }"
+          :visible="{ opacity: 1, y: 0, transition: { duration: 500, delay: index * 150 } }"
+        >
+          <div class="mb-4">
+            <component :is="service.icon" class="w-10 h-10 text-brand-primary" />
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">{{ service.title }}</h3>
+          <p class="text-gray-400">{{ service.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>

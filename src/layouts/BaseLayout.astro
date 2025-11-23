@@ -4,16 +4,13 @@ interface Props {
   description: string;
 }
 
-// ✅ Imports de estilos globales
 import "../styles/global.css";
 import "aos/dist/aos.css";
 
-// ✅ Componentes
 import Footer from "../components/Footer/Footer.astro";
 import NavBar from "@/components/NavBar/NavBar.astro";
 import WhatsAppButton from "@/components/WhatsAppButton.astro";
 
-// ✅ Props
 const { title, description } = Astro.props;
 ---
 
@@ -28,11 +25,8 @@ const { title, description } = Astro.props;
   </head>
 
   <body>
-  
-      <!-- ✅ Cargamos Vue sólo cuando es necesario -->
-      <NavBar />
-   
-    <!-- ✅ Aquí se inyecta el contenido de cada página -->
+    <NavBar />
+
     <main>
       <slot />
     </main>
@@ -43,8 +37,8 @@ const { title, description } = Astro.props;
       <Footer />
     </footer>
 
-    <!-- ✅ Script para inicializar AOS -->
-    <script is:inline>
+    <!-- 🚀 Carga de AOS correcta -->
+    <script type="module">
       import AOS from "aos";
       AOS.init({
         duration: 800,

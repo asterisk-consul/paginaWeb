@@ -1,0 +1,68 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/BaseLayout.astro";
+import BlogPostPreview from "../../components/BlogPostPreview.astro";
+import { animate, inView } from "motion";
+
+const posts = (await getCollection("blog"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<Layout title="Blog" description="Últimos artículos">
+  <div
+    class="absolute inset-0 pointer-events-none"
+    style="
+      background: radial-gradient(circle 1200px at 70% 30%, var(--gradient-color), transparent 70%);
+      z-index: -100;
+    "
+  >
+  </div>
+
+  <div class="bg-dark-bg px-10 md:px-15">
+    <!-- HERO -->
+    <section class="bg-dark-bg text-white py-10">
+      <div class="container mx-auto px-6">
+        <h1
+          class="font-family-tight font-semibold text-6xl md:text-8xl leading-[1.03] tracking-tighter text-balance"
+        >
+          Impulsamos tu transformación digital con diseño, estrategia y
+          tecnología.
+        </h1>
+
+        <p
+          class="mt-6 text-lg md:text-xl font-['Inter'] font-medium text-gray-400 max-w-2xl"
+        >
+          Somos una consultora digital que acompaña a empresas y startups en su
+          evolución, combinando creatividad, datos y automatización.
+        </p>
+      </div>
+    </section>
+
+    <!-- GRID DE POSTS -->
+    <section class="pb-10 md:pb-20">
+      <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {
+            posts.map((post, index) => (
+              <BlogPostPreview post={post} index={index} client:load />
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Motion One Animations -->
+  <script>
+    import { animate, inView } from "motion";
+
+    inView("article", ({ target }) => {
+      animate(
+        target,
+        { opacity: [0, 1], transform: ["translateY(50px)", "translateY(0)"] },
+        { duration: 0.5 }
+      );
+    });
+  </script>
+</Layout>

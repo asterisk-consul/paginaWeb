@@ -1,0 +1,30 @@
+---
+import Layout from "../../layouts/BaseLayout.astro";
+import { getCollection, getEntryBySlug } from "astro:content";
+
+// ⭐ Necesario para páginas dinámicas:
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+
+// Ahora sí, TS entiende que getEntryBySlug("blog") existe
+const post = await getEntryBySlug("blog", slug);
+if (!post) throw new Error(`Post ${slug} no encontrado`);
+
+const { Content } = await post.render();
+---
+
+<Layout title={post.data.title} description={post.data.description}>
+  <article class="container mx-auto px-6 py-10 max-w-3xl prose prose-invert">
+    <h1>{post.data.title}</h1>
+    <p class="text-gray-400 text-sm">{post.data.pubDate.toDateString()}</p>
+
+    <Content />
+  </article>
+</Layout>

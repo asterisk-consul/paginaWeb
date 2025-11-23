@@ -1,0 +1,75 @@
+---
+const team = [
+  {
+    name: "Elena Valdés",
+    role: "CEO & Estratega de Procesos",
+    avatar:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format&fit=crop",
+  },
+  {
+    name: "Marco Díaz",
+    role: "Director de Tecnología (CTO)",
+    avatar:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop",
+  },
+  {
+    name: "Lucía Morales",
+    role: "Jefa de Producto (Flow)",
+    avatar:
+      "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop",
+  },
+];
+---
+
+<section class="py-20 bg-dark-bg" id="team-section">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-foreground mb-4">
+        Nuestro Equipo
+      </h2>
+      <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+        Expertos en tecnología y negocio, unidos por la pasión de resolver
+        problemas complejos.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      {
+        team.map((member, index) => (
+          <div
+            class="text-center opacity-0 translate-y-12 motion-item"
+            data-delay={index * 100}
+          >
+            <img
+              src={member.avatar}
+              alt={member.name}
+              class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-dark-border"
+            />
+            <h4 class="text-xl font-bold text-foreground/80">{member.name}</h4>
+            <p class="text-brand-primary">{member.role}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import { inView, animate } from "@motionone/dom";
+
+  inView(".motion-item", ({ target }) => {
+    const el = target as HTMLElement; // <-- CASTEO
+
+    const delay = Number(el.dataset.delay) || 0;
+
+    animate(
+      el,
+      { opacity: 1, transform: "translateY(0px)" },
+      {
+        duration: 0.6,
+        delay: delay / 1000,
+        easing: "ease-out",
+      }
+    );
+  });
+</script>
