@@ -10,6 +10,9 @@
 /* Estilos base */
 @import "./base.css";
 
+/* Estilos de blog */
+@import "./blog.css";
+
 /* Componentes reutilizables */
 @import "./components.css";
 

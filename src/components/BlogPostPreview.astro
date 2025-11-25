@@ -7,21 +7,33 @@ export interface Props {
 const { post, index } = Astro.props;
 ---
 
-<div
+<article
   class="card relative block rounded-xl overflow-hidden border border-border bg-card group transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 transform hover:-translate-y-2"
   data-index={index}
 >
   <div class="glow absolute inset-0 pointer-events-none"></div>
 
-  <img src={post.imageUrl} alt={post.title} class="w-full h-48 object-cover" />
+  <a href={`/blog/${post.slug}`}>
+    <img
+      src={post.imageUrl}
+      alt={post.title}
+      class="w-full h-48 object-cover"
+    />
+  </a>
 
   <div class="p-6 relative z-10">
     <p class="text-sm text-muted-foreground mb-2">
       {post.data.pubDate.toDateString()}
     </p>
-    <h3 class="text-2xl font-medium group-hover:text-primary transition-colors">
-      {post.data.title}
-    </h3>
+
+    <a href={`/blog/${post.slug}`}>
+      <h3
+        class="text-2xl font-medium group-hover:text-primary transition-colors"
+      >
+        {post.data.title}
+      </h3>
+    </a>
+
     <p class="text-muted-foreground mb-4">{post.data.description}</p>
 
     <a
@@ -31,9 +43,10 @@ const { post, index } = Astro.props;
       Leer más →
     </a>
   </div>
-</div>
+</article>
 
-<script>
+<!-- Script separado -->
+<script is:inline>
   document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".card").forEach((card) => {
       const glow = card.querySelector(".glow");

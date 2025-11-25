@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/BaseLayout.astro";
 import BlogPostPreview from "../../components/BlogPostPreview.astro";
-import { animate, inView } from "motion";
 
 const posts = (await getCollection("blog"))
   .filter((p) => !p.data.draft)
@@ -46,13 +45,19 @@ const posts = (await getCollection("blog"))
 
   <!-- Motion One Animations -->
   <script>
+    // src/scripts/blog-animations.js
     import { animate, inView } from "motion";
 
-    inView("article", ({ target }) => {
+    inView("article", (element, entry) => {
       animate(
-        target,
-        { opacity: [0, 1], transform: ["translateY(50px)", "translateY(0)"] },
-        { duration: 0.5 },
+        element,
+        {
+          opacity: [0, 1],
+          transform: ["translateY(50px)", "translateY(0)"],
+        },
+        {
+          duration: 0.5,
+        }
       );
     });
   </script>

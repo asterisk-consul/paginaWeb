@@ -1,5 +1,4 @@
 ---
-slug: "5-pasos-para-digitalizar-procesos"
 title: "5 Pasos para Digitalizar los Procesos de tu Empresa"
 description: "Descubre cómo la digitalización puede reducir costes, minimizar errores y aumentar la eficiencia operativa de tu negocio."
 imageUrl: "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?q=80&w=2070&auto=format&fit=crop"
