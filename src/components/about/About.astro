@@ -1,5 +1,7 @@
 ---
-import { Target, Users, Zap } from "lucide-astro";
+import Target from "../icons/Target.astro";
+import Users from "../icons/Users.astro";
+import Zap from "../icons/Zap.astro";
 import TeamSection from "./TeamSection.astro"; // tu versión convertida antes
 
 // Elementos a animar
@@ -90,7 +92,7 @@ const fadeItems = [
       animate(
         target,
         { opacity: 1, transform: "translateY(0)" },
-        { duration: 0.6, delay: delay / 1000, easing: "ease-out" }
+        { duration: 0.6, delay: delay / 1000, easing: "ease-out" },
       );
     });
   });
@@ -100,7 +102,7 @@ const fadeItems = [
     animate(
       target,
       { opacity: 1, transform: "translateY(0)" },
-      { duration: 0.6, easing: "ease-out" }
+      { duration: 0.6, easing: "ease-out" },
     );
   });
 </script>

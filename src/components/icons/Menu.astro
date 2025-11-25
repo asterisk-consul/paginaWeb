@@ -1,0 +1,24 @@
+---
+const {
+    size = 24,
+    color = "currentColor",
+    strokeWidth = 2,
+    class: className = "",
+    ...rest
+} = Astro.props;
+---
+
+<svg
+    {...rest}
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    stroke-width={strokeWidth}
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class={className}
+    ><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"
+    ></path></svg
+>

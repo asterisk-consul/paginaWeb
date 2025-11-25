@@ -1,5 +1,8 @@
 ---
-import { Sun, Moon, Menu, X } from "lucide-astro";
+import Sun from "../icons/Sun.astro";
+import Moon from "../icons/Moon.astro";
+import Menu from "../icons/Menu.astro";
+import X from "../icons/XCerrar.astro";
 import LogoAsterisk from "../LogoAsteris.astro";
 const navLinks = [
   { to: "/about", text: "Nosotros" },
@@ -47,8 +50,12 @@ const navLinks = [
           id="theme-thumb"
           class="w-5 h-5 bg-white dark:bg-gray-600 rounded-full flex items-center justify-center shadow-md transform transition-transform duration-300"
         >
-          <Sun class="w-3 h-3 text-background sun-icon" />
-          <Moon class="w-3 h-3 text-foreground moon-icon" />
+          <span class="sun-icon block">
+            <Sun class="w-3 h-3 text-background" />
+          </span>
+          <span class="moon-icon hidden">
+            <Moon class="w-3 h-3 text-foreground" />
+          </span>
         </span>
       </button>
       <a
@@ -61,12 +68,17 @@ const navLinks = [
     <!-- MOBILE MENU BUTTON -->
     <div class="md:hidden flex items-center gap-2">
       <button id="mobile-theme-toggle">
-        <Sun class="w-5 h-5 mobile-sun block" />
-        <Moon class="w-5 h-5 mobile-moon hidden" />
+        <span class="mobile-sun block"><Sun class="w-5 h-5" /></span>
+        <span class="mobile-moon hidden"><Moon class="w-5 h-5" /></span>
       </button>
+
       <button id="menu-toggle" class="text-foreground">
-        <Menu class="w-6 h-6 block" id="menu-icon" />
-        <X class="w-6 h-6 hidden" id="close-icon" />
+        <span id="menu-icon" class="block">
+          <Menu class="w-6 h-6" />
+        </span>
+        <span id="close-icon" class="hidden">
+          <X class="w-6 h-6" />
+        </span>
       </button>
     </div>
   </nav>
