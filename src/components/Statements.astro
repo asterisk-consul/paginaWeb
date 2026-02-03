@@ -1,0 +1,40 @@
+---
+import RectReveal from "../components/RectReveal.astro";
+
+interface Props {
+  items: { title: string; text: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="sy-statements relative z-10 mb-0">
+  <RectReveal ignoreLast>
+    {
+      items.map(({ title, text }, i) => (
+        <div
+          class={`
+          w-full h-screen flex items-center justify-center text-center flex-col
+          ${i === 0 ? "bg-background text-foreground" : ""}
+          ${i === 1 ? "bg-primary text-primary-foreground" : ""}
+          ${i === 2 ? "bg-background text-secondary-foreground" : ""}
+        `}
+        >
+          <div class="container mx-auto px-4">
+            <div class="flex flex-col justify-center items-center">
+              <h2 class="font-family-tight font-regular text-6xl md:text-8xl tracking-tighter text-balance mb-4">
+                {title}
+              </h2>
+              <p class="text-xl md:text-2xl text-foreground/80 mb-8">{text}</p>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </RectReveal>
+  <div
+    data-gl-place="0"
+    class="absolute left-0 right-0 bottom-0 md:bottom-1/2 mx-auto"
+  >
+  </div>
+</div>

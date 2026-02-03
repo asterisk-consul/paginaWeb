@@ -1,0 +1,119 @@
+---
+/**
+ * sy-gradient-bg
+ * Fondo animado que toma los colores desde el theme (CSS variables)
+ * Compatible con light / dark vía data-theme
+ */
+---
+
+<sy-gradient-bg></sy-gradient-bg>
+
+<script>
+  import { addIntersectingTicker } from "../utils/globalTicker";
+
+  class GradientBackground extends HTMLElement {
+    step = 0;
+    colorIndices = [0, 1, 2, 3];
+    gradientSpeed = 0.002;
+    colors: number[][] = [];
+
+    constructor() {
+      super();
+      this.loadColors();
+      addIntersectingTicker(this);
+    }
+
+    connectedCallback() {
+      // Detecta cambio de theme (data-theme)
+      const observer = new MutationObserver(() => this.loadColors());
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["data-theme"],
+      });
+    }
+
+    loadColors() {
+      const styles = getComputedStyle(document.documentElement);
+
+      this.colors = [
+        "--gradient-1",
+        "--gradient-2",
+        "--gradient-3",
+        "--gradient-4",
+      ].map((varName) => {
+        const value = styles.getPropertyValue(varName).trim();
+        // Si está vacío, usa fallback
+        if (!value) return [128, 128, 128];
+        return value.split(/\s+/).map(Number);
+      });
+    }
+
+    tick(t: number) {
+      if (this.colors.length < 4) return;
+
+      const colors = this.colors;
+      const colorIndices = this.colorIndices;
+      const step = this.step;
+
+      const c00 = colors[colorIndices[0]];
+      const c01 = colors[colorIndices[1]];
+      const c10 = colors[colorIndices[2]];
+      const c11 = colors[colorIndices[3]];
+
+      const istep = 1 - step;
+      const r1 = Math.round(istep * c00[0] + step * c01[0]);
+      const g1 = Math.round(istep * c00[1] + step * c01[1]);
+      const b1 = Math.round(istep * c00[2] + step * c01[2]);
+      const color1 = "rgb(" + r1 + "," + g1 + "," + b1 + ")";
+
+      const r2 = Math.round(istep * c10[0] + step * c11[0]);
+      const g2 = Math.round(istep * c10[1] + step * c11[1]);
+      const b2 = Math.round(istep * c10[2] + step * c11[2]);
+      const color2 = "rgb(" + r2 + "," + g2 + "," + b2 + ")";
+
+      this.style.backgroundImage = `linear-gradient(${Math.round(90 + (Math.cos(t / 10000) * 10 * 100) / 100)}deg, ${color1} 0%, ${color2} 100%)`;
+
+      this.step += this.gradientSpeed;
+      if (this.step >= 1) {
+        this.step %= 1;
+
+        colorIndices[0] = colorIndices[1];
+        colorIndices[2] = colorIndices[3];
+
+        const n = Math.random();
+        colorIndices[1] =
+          (colorIndices[1] + Math.floor(1 + n * (colors.length - 1))) %
+          colors.length;
+        colorIndices[3] =
+          (colorIndices[3] +
+            Math.floor(1 + (Math.random() + n) * (colors.length - 1))) %
+          colors.length;
+      }
+    }
+  }
+
+  customElements.define("sy-gradient-bg", GradientBackground);
+</script>
+
+<style>
+  sy-gradient-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+
+    /* Combina ambos gradientes para un efecto más natural */
+    mask-image:
+      radial-gradient(ellipse 100% 80% at 50% 50%, black 30%, transparent 90%),
+      linear-gradient(
+        to bottom,
+        transparent 0%,
+        black 10%,
+        black 90%,
+        transparent 100%
+      );
+    mask-composite: intersect;
+  }
+</style>

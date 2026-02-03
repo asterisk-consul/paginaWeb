@@ -1,0 +1,49 @@
+---
+interface Props {
+  texts: string[];
+  direction?: 1 | -1;
+  class?: string;
+}
+
+const { texts, direction, class: className = "" } = Astro.props;
+---
+
+<div class="overflow-hidden w-screen">
+  <div
+    id="track"
+    class="flex w-max will-change-transform
+      [&>*:nth-child(3n+1)]:font-bold
+      [&>*:nth-child(3n+2)]:font-light
+      [&>*:nth-child(3n+2)]:opacity-80
+      [&>*:nth-child(3n+3)]:font-extrabold
+      [&>*:nth-child(3n+3)]:text-transparent
+      [&>*:nth-child(3n+3)]:bg-clip-text
+      [&>*:nth-child(3n+3)]:bg-gradient-to-r
+      [&>*:nth-child(3n+3)]:from-current
+      [&>*:nth-child(3n+3)]:to-white"
+  >
+    {
+      texts
+        .concat(texts)
+        .map((t) => (
+          <div class="px-6 text-[4rem] whitespace-nowrap text-[var(--c,var(--color-brand-1))]">
+            {t}
+          </div>
+        ))
+    }
+  </div>
+</div>
+
+<script>
+  const track = document.getElementById("track");
+  let x = 0;
+
+  function tick() {
+    x -= 0.5;
+    if (Math.abs(x) > track.scrollWidth / 2) x = 0;
+    track.style.transform = `translate3d(${x}px,0,0)`;
+    requestAnimationFrame(tick);
+  }
+
+  tick();
+</script>

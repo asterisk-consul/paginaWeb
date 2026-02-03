@@ -1,4 +1,4 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, fontProviders } from "astro/config";
 
 import tailwindcss from "@tailwindcss/vite";
 
@@ -12,5 +12,21 @@ export default defineConfig({
         "@": new URL("./src/", import.meta.url),
       },
     },
+  },
+  experimental: {
+    fonts: [
+      {
+        provider: fontProviders.google(),
+        name: "inter-tight",
+        cssVariable: "--font-inter-tight",
+        weights: ["100 900"],
+      },
+      {
+        provider: fontProviders.google(),
+        name: "Inter",
+        cssVariable: "--font-inter",
+        weights: ["100 900"],
+      },
+    ],
   },
 });

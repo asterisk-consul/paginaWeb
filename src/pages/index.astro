@@ -3,6 +3,8 @@ import Layout from "../layouts/BaseLayout.astro";
 import Hero from "../components/HeroSection/HeroSection.astro";
 import ClienteSection from "@/components/clientes/ClienteSection.astro";
 import StepsTimeline from "@/components/StepsTimeline.astro";
+import GalleryText from "@/components/GalleryText.astro";
+import Statements from "@/components/Statements.astro";
 import Faqs from "@/components/Faqs.astro";
 import Plans from "@/components/Plans.astro";
 import BaseDatosZap from "@/components/icons/BaseDatosZap.astro";
@@ -35,6 +37,56 @@ import ChartSpline from "@/components/icons/chart-spline.astro";
         title: "Análisis Y Visualización",
         text: "Extraemos insights valiosos de tus datos para que puedas tomar decisiones informadas y estratégicas.",
       },
+    ]}
+  />
+  <Statements
+    items={[
+      {
+        title: "Soluciones digitales escalables",
+        text: "Diseñamos experiencias web y aplicaciones pensadas para crecer con tu negocio, desde startups hasta empresas consolidadas.",
+      },
+      {
+        title: "Tecnología que impulsa resultados",
+        text: "Implementamos las herramientas y estrategias digitales que tu empresa necesita para competir en el mercado actual.",
+      },
+      {
+        title: "Impacto real en tu negocio",
+        text: "Optimizamos procesos, mejoramos la experiencia del usuario y aumentamos conversiones con métricas claras y medibles.",
+      },
+    ]}
+  />
+  <GalleryText
+    title="Plataforma Intuitiva y Potente"
+    text="Nuestra plataforma de gestión de proyectos ofrece una solución intuitiva y potente para gestionar proyectos de manera eficiente."
+    cta={{
+      title: "Conocer mas",
+      url: "#productos",
+    }}
+    images={[
+      {
+        alt: "Línea industrial de pelado de frutos secos",
+        src: "foto1.webp",
+        width: 6000,
+        height: 4000,
+      },
+      {
+        alt: "Detalle de maquinaria DYFMA",
+        src: "foto1.webp",
+        width: 2689,
+        height: 4032,
+      },
+      {
+        alt: "Proceso industrial de pelado",
+        src: "foto1.webp",
+        width: 3734,
+        height: 5359,
+      },
+    ]}
+    marqueeTexts={[
+      "Ingeniería Nacional",
+      "Diseño Industrial",
+      "Alta Productividad",
+      "Procesos Confiables",
     ]}
   />
 

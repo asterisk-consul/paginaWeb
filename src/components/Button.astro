@@ -47,16 +47,16 @@ const attrs = Element === "a" ? { href: url, target } : { type };
   data-sy-reveal-manual={manualReveal ? "" : undefined}
   class:list={[
     "btn relative inline-block overflow-hidden rounded-full font-semibold tracking-wide",
-    "transition-all duration-300",
     size === "sm" ? "text-xs" : "text-sm",
     color === "primary" ? "btn-primary" : "btn-primary-alt",
     arrow && "btn-arrow",
     className,
   ]}
 >
-  <span class="btn-inner block relative">
-    <span class="btn-hover absolute inset-0 flex items-center justify-center"
-    ></span>
+  <span class="btn-inner relative block">
+    <span class="btn-hover absolute inset-0 flex items-center justify-center">
+      {title}
+    </span>
     <span class="btn-base relative flex items-center justify-center gap-2">
       {title}
     </span>
@@ -64,15 +64,16 @@ const attrs = Element === "a" ? { href: url, target } : { type };
 </Element>
 
 <style>
-  /* base */
   .btn {
     --bg: hsl(var(--primary));
     --txt: white;
     --hover-bg: white;
     --hover-txt: hsl(var(--primary));
+    background: none;
+    border: none;
+    cursor: pointer;
   }
 
-  /* variantes */
   .btn-primary {
     --bg: hsl(var(--primary));
     --txt: white;
@@ -83,7 +84,17 @@ const attrs = Element === "a" ? { href: url, target } : { type };
     --txt: hsl(var(--foreground));
   }
 
-  /* estructura */
+  [data-sy-reveal] {
+    clip-path: inset(0 100% 0 0 round 9999px);
+    transform: translateX(2rem);
+    transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  [data-sy-reveal].is-in {
+    clip-path: inset(0 0 round 9999px);
+    transform: translateX(0);
+  }
+
   .btn-inner::after {
     content: "";
     position: absolute;
@@ -100,42 +111,28 @@ const attrs = Element === "a" ? { href: url, target } : { type };
     background: var(--bg);
     color: var(--txt);
     transition: clip-path 0.3s ease;
+    line-height: 1.25;
   }
 
   .btn-hover {
     background: var(--hover-bg);
     color: var(--hover-txt);
-    position: absolute;
-    inset: 0;
     clip-path: inset(50% round 9999px);
     z-index: 2;
   }
 
-  .btn:hover .btn-hover {
+  .btn:hover .btn-hover,
+  .btn:focus .btn-hover {
     clip-path: inset(-100% round 9999px);
   }
 
-  /* arrow */
   .btn-arrow .btn-base::after,
   .btn-arrow .btn-hover::after {
     content: "";
     width: 1.25em;
     height: 1.25em;
-    margin-left: 0.75em;
     background: currentColor;
     mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 21'%3E%3Cpath d='m16 9-6-6 2-1 8 8-1 1-7 7-2-1 6-6H0V9z'/%3E%3C/svg%3E")
       no-repeat center / contain;
-  }
-
-  /* reveal */
-  [data-sy-reveal] {
-    clip-path: inset(0 100% 0 0 round 9999px);
-    transform: translateX(2rem);
-    transition: 0.4s ease;
-  }
-
-  [data-sy-reveal].is-in {
-    clip-path: inset(0 0 round 9999px);
-    transform: translateX(0);
   }
 </style>

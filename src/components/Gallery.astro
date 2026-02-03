@@ -1,0 +1,161 @@
+---
+import type { Image } from "../types";
+
+interface Props {
+  class?: string;
+  images: Image[];
+}
+
+const { images, class: className = "" } = Astro.props;
+---
+
+<sy-gallery class:list={["relative flex w-full overflow-hidden", className]}>
+  <!-- Slider -->
+  <div class="relative flex-1 z-10 overflow-hidden">
+    <div data-inner class="flex h-full">
+      {
+        images.map((img) => (
+          <div
+            data-slide
+            class="relative w-full h-full shrink-0 overflow-hidden"
+          >
+            <img
+              {...img}
+              class="
+                w-full h-full
+                object-cover
+                will-change-transform
+                translate-x-[var(--ix)]
+              "
+            />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Dots -->
+  <div
+    data-dots
+    class="absolute bottom-2.5 left-1/2 -translate-x-1/2 z-20 flex gap-2"
+  >
+  </div>
+</sy-gallery>
+
+<script>
+  import { gsap } from "gsap";
+  import { Draggable } from "gsap/Draggable";
+  import { InertiaPlugin } from "gsap/InertiaPlugin";
+  import { addResizeObserver } from "../utils/observers";
+
+  gsap.registerPlugin(Draggable, InertiaPlugin);
+
+  class Gallery extends HTMLElement {
+    currentIndex = 0;
+    itemWidth = 0;
+    innerEl;
+    slides;
+    draggable;
+    buttons = [];
+    snapX;
+
+    constructor() {
+      super();
+      this.slides = [...this.querySelectorAll("[data-slide]")];
+      this.innerEl = this.querySelector("[data-inner]");
+      addResizeObserver(this);
+    }
+
+    connectedCallback() {
+      this.initDots();
+      this.onWidthResize(); // primero medimos
+      this.initSlider(); // después creamos Draggable
+    }
+
+    onWidthResize() {
+      const width = Math.floor(this.getBoundingClientRect().width);
+      if (!width || this.itemWidth === width) return;
+
+      this.itemWidth = width;
+      this.snapX = gsap.utils.snap(width);
+
+      if (this.draggable) {
+        this.reCalc();
+      }
+    }
+
+    initDots() {
+      const dots = this.querySelector("[data-dots]");
+      this.slides.forEach((_s, i) => {
+        const btn = document.createElement("button");
+        btn.className =
+          "w-2.5 h-2.5 rounded-full bg-white/60 hover:bg-white transition-opacity";
+        btn.addEventListener("click", () => this.goto(i));
+        dots.append(btn);
+        this.buttons.push(btn);
+      });
+    }
+
+    initSlider() {
+      if (this.itemWidth <= 0) return;
+
+      this.draggable = Draggable.create(this.innerEl, {
+        type: "x",
+        inertia: true,
+        bounds: {
+          minX: this.itemWidth * -(this.slides.length - 1),
+          maxX: 0,
+        },
+        snap: (n) => this.snapX(n),
+        onDrag: this.onUpdate,
+        onThrowUpdate: this.onUpdate,
+      })[0];
+
+      this.onUpdate();
+    }
+
+    reCalc() {
+      this.draggable.applyBounds({
+        minX: this.itemWidth * -(this.slides.length - 1),
+        maxX: 0,
+      });
+
+      gsap.set(this.innerEl, { x: this.itemWidth * -this.currentIndex });
+      this.draggable.update(true);
+      this.onUpdate();
+    }
+
+    goto(index) {
+      const x = this.itemWidth * -index;
+
+      gsap.to(this.innerEl, {
+        x,
+        duration: 0.8,
+        ease: "power3.out",
+        onUpdate: () => {
+          this.draggable.update();
+          this.onUpdate();
+        },
+      });
+    }
+
+    onUpdate = () => {
+      const { x, minX } = this.draggable;
+      const index = Math.abs(Math.round((x / minX) * (this.slides.length - 1)));
+
+      this.slides.forEach((slide, i) => {
+        const xx = x + this.itemWidth * i;
+        const progress = xx / this.itemWidth;
+        slide
+          .querySelector("img")
+          .style.setProperty("--ix", `${progress * -66}%`);
+      });
+
+      this.buttons[this.currentIndex]?.classList.remove("opacity-100");
+      this.buttons[index]?.classList.add("opacity-100");
+      this.currentIndex = index;
+    };
+  }
+
+  customElements.define("sy-gallery", Gallery);
+</script>
