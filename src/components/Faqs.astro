@@ -1,0 +1,184 @@
+---
+interface Item {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  title: string;
+  subtitle: string;
+  mobileTitle: string;
+  items: Item[];
+}
+
+const { title, subtitle, mobileTitle, items } = Astro.props;
+---
+
+<sy-faqs class="block overflow-hidden my-32 relative">
+  <div class="container mx-auto px-6 flex flex-col items-center relative z-10">
+
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h2
+        class="uppercase tracking-tight text-5xl md:text-6xl mb-2"
+        data-sy-reveal="words"
+      >
+        <span class="hidden md:inline">{title}</span>
+        <span class="inline md:hidden">{mobileTitle}</span>
+      </h2>
+
+      <p
+        class="text-lg text-foreground/70 max-w-xl mx-auto"
+        data-sy-reveal="lines"
+      >
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- FAQs -->
+    <div class="w-full max-w-xl flex flex-col">
+      {
+        items.map((item, i) => (
+          <div
+            class="faq border-t border-foreground/20 py-6 last:border-b"
+          >
+            <h3
+              id={`faq-header-${i}`}
+              class="text-lg font-medium tracking-tight"
+            >
+              <button
+                class="
+                  toggle
+                  w-full
+                  flex flex-row-reverse
+                  items-center
+                  justify-end
+                  gap-4
+                  text-left
+                  cursor-pointer
+                  bg-transparent
+                  border-0
+                  p-0
+                "
+                type="button"
+                aria-controls={`faq-panel-${i}`}
+                aria-expanded="false"
+              >
+                <!-- Texto -->
+                <span class="flex-1" data-sy-reveal="words">
+                  {item.question}
+                </span>
+
+                <!-- Icono + -->
+                <span class="relative w-3 h-3 flex items-center justify-center">
+  <span
+    class="
+      line-x
+      absolute
+      w-full
+      h-0.5
+      bg-primary
+      transition-transform
+      duration-200
+    "
+  ></span>
+  <span
+    class="
+      line-y
+      absolute
+      w-full
+      h-0.5
+      bg-primary
+      rotate-90
+      transition-transform
+      duration-200
+    "
+  ></span>
+</span>
+
+              </button>
+            </h3>
+
+            <!-- Panel -->
+            <div
+              id={`faq-panel-${i}`}
+              class="panel overflow-hidden h-0"
+              aria-labelledby={`faq-header-${i}`}
+              hidden
+            >
+              <div
+                class="
+                  text-sm
+                  text-foreground/70
+                  mt-3
+                  pl-7
+                  whitespace-pre-line
+                "
+              >
+                {item.answer}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</sy-faqs>
+
+<script>
+  import gsap from "gsap";
+
+  class Faqs extends HTMLElement {
+    connectedCallback() {
+      const root = this;
+
+      function onClick(e) {
+        e.preventDefault();
+        const btn = e.currentTarget;
+        const faq = btn.closest(".faq");
+
+        const expanded = btn.getAttribute("aria-expanded") === "true";
+        const opened = root.querySelector(".faq.is-opened");
+
+        if (opened && opened !== faq) {
+          toggle(opened, false);
+        }
+
+        toggle(faq, !expanded);
+      }
+
+function toggle(faq, expanded) {
+  const btn = faq.querySelector(".toggle");
+  const panel = faq.querySelector(".panel");
+
+  faq.classList.toggle("is-opened", expanded);
+  btn.setAttribute("aria-expanded", expanded ? "true" : "false");
+  panel.hidden = !expanded;
+
+  gsap.to(panel, {
+    height: expanded ? "auto" : 0,
+    duration: 0.4,
+    ease: "power3.inOut",
+  });
+}
+
+
+      this.querySelectorAll(".toggle").forEach((btn) => {
+        btn.addEventListener("click", onClick);
+      });
+    }
+  }
+
+  customElements.define("sy-faqs", Faqs);
+</script>
+
+<style>
+    /* estado abierto */
+.faq.is-opened .line-x {
+  transform: rotate(0deg);
+}
+
+.faq.is-opened .line-y {
+  transform: rotate(90deg);
+}
+</style>

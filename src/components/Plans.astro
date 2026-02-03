@@ -1,0 +1,192 @@
+---
+import Button from "./Button.astro";
+import type { Link } from "../types";
+
+interface Item {
+  title: string;
+  price: {
+    amount: string;
+    duration: string;
+  };
+  link: Link;
+  features: {
+    title: string;
+    disabled?: boolean;
+  }[];
+}
+
+interface Props {
+  title: string;
+  subtitle: string;
+  items: [Item, Item];
+}
+
+const { title, subtitle, items } = Astro.props;
+---
+
+<section class="relative py-20">
+  <div class="container mx-auto px-6">
+    <!-- Título -->
+    <h2
+      class="
+        text-center
+        uppercase
+        font-family-tight
+        font-regular
+        text-4xl md:text-5xl
+        tracking-tighter
+        mb-2
+      "
+    >
+      {title}
+    </h2>
+
+    <p
+      class="
+        text-center
+        text-foreground/70
+        max-w-2xl
+        mx-auto
+        mb-14
+      "
+    >
+      {subtitle}
+    </p>
+
+    <!-- Planes -->
+    <div
+      class="
+        flex
+        flex-col
+        md:flex-row
+        gap-8
+        justify-center
+        items-stretch
+      "
+    >
+      {
+        items.map((item, i) => (
+          <div
+            class={`
+              relative
+              rounded-2xl
+              p-[2px]
+              max-w-sm
+              w-full
+              ${
+                i === 1
+                  ? "plan-highlight"
+                  : "bg-card border border-border"
+              }
+            `}
+          >
+            <div
+              class="
+                bg-card
+                rounded-[14px]
+                p-8
+                h-full
+                flex
+                flex-col
+              "
+            >
+              <!-- Título -->
+              <h3
+                class="
+                  font-family-tight
+                  text-lg
+                  tracking-tight
+                  mb-3
+                "
+              >
+                {item.title}
+              </h3>
+
+              <!-- Precio -->
+              <div class="flex items-end gap-1 mb-8">
+                <span
+                  class="
+                    font-family-tight
+                    text-5xl
+                    tracking-tight
+                  "
+                >
+                  {item.price.amount}
+                </span>
+                <span class="text-sm text-foreground/60 pb-2">
+                  /{item.price.duration}
+                </span>
+              </div>
+
+              <!-- Features -->
+              <ul class="flex flex-col gap-3 mb-10">
+                {
+                  item.features.map((feat) => (
+                    <li
+                      class={`
+                        flex
+                        items-start
+                        gap-3
+                        text-sm
+                        ${
+                          feat.disabled
+                            ? "text-foreground/40"
+                            : "text-foreground"
+                        }
+                      `}
+                    >
+                      <span
+                        class={`
+                          mt-1
+                          block
+                          h-2
+                          w-2
+                          rounded-full
+                          ${
+                            feat.disabled
+                              ? "bg-foreground/30"
+                              : "bg-primary"
+                          }
+                        `}
+                      ></span>
+                      {feat.title}
+                    </li>
+                  ))
+                }
+              </ul>
+
+              <!-- CTA -->
+              <div class="mt-auto">
+                <Button
+                  {...item.link}
+                  color={i === 0 ? "primary-alt" : "primary"}
+                />
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+@keyframes plan-border {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.plan-highlight::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background: linear-gradient(
+    135deg,
+    hsl(var(--secondary)),
+    hsl(var(--primary))
+  );
+  animation: plan-border 6s linear infinite;
+  z-index: -1;
+}
+</style>
