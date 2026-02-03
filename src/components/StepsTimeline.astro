@@ -1,0 +1,144 @@
+---
+interface Props {
+  title: string;
+  items: {
+    title: string;
+    text: string;
+    icon: any;
+  }[];
+}
+
+const { title, items } = Astro.props;
+---
+
+<sy-steps-timeline class="relative block py-24">
+  <div class="container mx-auto px-6">
+    <!-- Título -->
+    <h2
+      class="font-family-tight font-regular
+        text-5xl md:text-6xl
+        tracking-tighter text-balance
+        mb-16"
+      data-aos="fade-up"
+    >
+      {title}
+    </h2>
+
+    <!-- Timeline -->
+    <div class="relative flex gap-12">
+      <!-- Línea -->
+      <div
+        class="w-px
+          bg-gradient-to-b from-secondary to-primary
+          opacity-60 mr-11"
+      >
+      </div>
+
+      <!-- Items -->
+      <div class="flex flex-col gap-12 counter-reset max-w-xl">
+        {
+          items.map((item, i) => (
+            <div class={`item ${i === 0 ? "is-active" : ""}`}>
+              <div
+                class="
+                  item-inner relative
+                  rounded-2xl
+                   backdrop-blur-md
+                  p-8
+                  shadow-lg shadow-black/5
+                  transition-all duration-300
+                  
+                "
+                data-aos="fade-up"
+                data-aos-delay={i * 150}
+              >
+                <div class="flex items-center gap-3">
+                  <item.icon class="w-6 h-6 text-primary" />
+                  <h3
+                    class="
+                    font-family-tight
+                    text-2xl
+                    tracking-tight
+                    mb-2
+                  "
+                  >
+                    {item.title}
+                  </h3>
+                </div>
+
+                <p class="text-foreground/80">{item.text}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</sy-steps-timeline>
+
+<script>
+  import gsap from "gsap";
+  import ScrollTrigger from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  class StepsTimeline extends HTMLElement {
+    connectedCallback() {
+      const items = Array.from(this.querySelectorAll(".item"));
+      let current = 0;
+
+      ScrollTrigger.create({
+        trigger: this,
+        start: "top center",
+        end: () => `+=${items.length * window.innerHeight * 0.6}`,
+        scrub: true,
+
+        onUpdate: (st) => {
+          const index = Math.round(st.progress * (items.length - 1));
+
+          if (index !== current) {
+            items[current]?.classList.remove("is-active");
+            items[index]?.classList.add("is-active");
+            current = index;
+          }
+        },
+      });
+    }
+  }
+
+  customElements.define("sy-steps-timeline", StepsTimeline);
+</script>
+
+<style>
+  /* contador */
+  .counter-reset {
+    counter-reset: steps;
+  }
+
+  .item-inner::before {
+    counter-increment: steps;
+    content: counter(steps, decimal-leading-zero);
+
+    position: absolute;
+    top: -1.5rem;
+    left: -3.5rem;
+
+    font-family: var(--font-family-tight);
+    font-size: 2rem;
+    font-weight: 600;
+
+    color: hsl(var(--primary));
+    background: none;
+    -webkit-text-fill-color: initial;
+
+    opacity: 0.4;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .item.is-active .item-inner::before {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+</style>

@@ -2,6 +2,8 @@
 import Layout from "../layouts/BaseLayout.astro";
 import Hero from "../components/HeroSection/HeroSection.astro";
 import ClienteSection from "@/components/clientes/ClienteSection.astro";
+import StepsTimeline from "@/components/StepsTimeline.astro";
+import BaseDatosZap from "@/components/icons/BaseDatosZap.astro";
 ---
 
 <Layout
@@ -10,4 +12,25 @@ import ClienteSection from "@/components/clientes/ClienteSection.astro";
 >
   <Hero />
   <ClienteSection />
+
+  <StepsTimeline
+    title="Soluciones para la toma de decisiones"
+    items={[
+      {
+        icon: BaseDatosZap,
+        title: "Digitalización de Procesos",
+        text: "Convertimos tus flujos de trabajo manuales en sistemas digitales eficientes, centralizando tu información.",
+      },
+      {
+        icon: BaseDatosZap,
+        title: "Plataforma de Gestión Flow",
+        text: "Nuestra plataforma te permite administrar, visualizar y controlar todos tus procesos desde un único lugar.",
+      },
+      {
+        icon: BaseDatosZap,
+        title: "Análisis productivo",
+        text: "Evaluamos el tipo de fruto, volumen de producción y necesidades operativas para definir la solución más eficiente.",
+      },
+    ]}
+  />
 </Layout>

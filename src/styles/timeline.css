@@ -1,0 +1,9 @@
+@layer utilities {
+    .step-number {
+        @apply relative z-10 mb-24 text-sm font-medium text-muted-foreground opacity-40 transition-colors duration-200 ease-in-out;
+    }
+
+    .step-number.is-active {
+        @apply text-primary opacity-100;
+    }
+}

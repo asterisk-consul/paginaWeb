@@ -18,3 +18,6 @@
 
 /* Animaciones */
 @import "./animations.css";
+
+/* Timeline */
+@import "./timeline.css";
