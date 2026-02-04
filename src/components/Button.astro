@@ -2,7 +2,7 @@
 type CommonProps = {
   class?: string;
   color?: "primary" | "primary-alt";
-  size?: "sm" | "md";
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
   arrow?: boolean;
   title: string;
   revealable?: boolean;
@@ -39,6 +39,15 @@ const {
 const Element = url ? "a" : "button";
 
 const attrs = Element === "a" ? { href: url, target } : { type };
+
+// Mapeo de tamaños
+const sizeClasses = {
+  xs: "text-xs btn-xs",
+  sm: "text-sm btn-sm",
+  md: "text-base btn-md",
+  lg: "text-lg btn-lg",
+  xl: "text-xl btn-xl",
+};
 ---
 
 <Element
@@ -46,8 +55,8 @@ const attrs = Element === "a" ? { href: url, target } : { type };
   data-sy-reveal={revealable ? "" : undefined}
   data-sy-reveal-manual={manualReveal ? "" : undefined}
   class:list={[
-    "btn relative inline-block overflow-hidden rounded-full font-semibold tracking-wide",
-    size === "sm" ? "text-xs" : "text-sm",
+    "btn relative inline-block overflow-hidden rounded-lg font-semibold tracking-wide",
+    sizeClasses[size],
     color === "primary" ? "btn-primary" : "btn-primary-alt",
     arrow && "btn-arrow",
     className,
@@ -85,13 +94,13 @@ const attrs = Element === "a" ? { href: url, target } : { type };
   }
 
   [data-sy-reveal] {
-    clip-path: inset(0 100% 0 0 round 9999px);
+    clip-path: inset(0 100% 0 0 round 0.5rem);
     transform: translateX(2rem);
     transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   [data-sy-reveal].is-in {
-    clip-path: inset(0 0 round 9999px);
+    clip-path: inset(0 0 round 0.5rem);
     transform: translateX(0);
   }
 
@@ -99,40 +108,94 @@ const attrs = Element === "a" ? { href: url, target } : { type };
     content: "";
     position: absolute;
     inset: 0;
-    border-radius: 9999px;
+    border-radius: 0.5rem;
     border: 2px solid var(--bg);
     z-index: 3;
   }
 
   .btn-base,
   .btn-hover {
-    padding: 0.75em 1.5em;
-    border-radius: 9999px;
+    border-radius: 0.5rem;
     background: var(--bg);
     color: var(--txt);
     transition: clip-path 0.3s ease;
     line-height: 1.25;
   }
 
+  /* Tamaños específicos */
+  .btn-xs .btn-base,
+  .btn-xs .btn-hover {
+    padding: 0.5em 1em;
+  }
+
+  .btn-sm .btn-base,
+  .btn-sm .btn-hover {
+    padding: 0.625em 1.25em;
+  }
+
+  .btn-md .btn-base,
+  .btn-md .btn-hover {
+    padding: 0.75em 1.5em;
+  }
+
+  .btn-lg .btn-base,
+  .btn-lg .btn-hover {
+    padding: 0.875em 2em;
+  }
+
+  .btn-xl .btn-base,
+  .btn-xl .btn-hover {
+    padding: 1em 2.5em;
+  }
+
   .btn-hover {
     background: var(--hover-bg);
     color: var(--hover-txt);
-    clip-path: inset(50% round 9999px);
+    clip-path: inset(50% round 0.5rem);
     z-index: 2;
   }
 
   .btn:hover .btn-hover,
   .btn:focus .btn-hover {
-    clip-path: inset(-100% round 9999px);
+    clip-path: inset(-100% round 0.5rem);
   }
 
+  /* Flecha - ajustar tamaño según el botón */
   .btn-arrow .btn-base::after,
   .btn-arrow .btn-hover::after {
     content: "";
-    width: 1.25em;
-    height: 1.25em;
     background: currentColor;
     mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 21'%3E%3Cpath d='m16 9-6-6 2-1 8 8-1 1-7 7-2-1 6-6H0V9z'/%3E%3C/svg%3E")
       no-repeat center / contain;
+  }
+
+  .btn-xs.btn-arrow .btn-base::after,
+  .btn-xs.btn-arrow .btn-hover::after {
+    width: 0.875em;
+    height: 0.875em;
+  }
+
+  .btn-sm.btn-arrow .btn-base::after,
+  .btn-sm.btn-arrow .btn-hover::after {
+    width: 1em;
+    height: 1em;
+  }
+
+  .btn-md.btn-arrow .btn-base::after,
+  .btn-md.btn-arrow .btn-hover::after {
+    width: 1.25em;
+    height: 1.25em;
+  }
+
+  .btn-lg.btn-arrow .btn-base::after,
+  .btn-lg.btn-arrow .btn-hover::after {
+    width: 1.5em;
+    height: 1.5em;
+  }
+
+  .btn-xl.btn-arrow .btn-base::after,
+  .btn-xl.btn-arrow .btn-hover::after {
+    width: 1.75em;
+    height: 1.75em;
   }
 </style>

@@ -4,7 +4,6 @@ import Button from "./Button.astro";
 import Gallery from "./Gallery.astro";
 import GradientBackground from "./GradientBackground.astro";
 import TextMarquee from "../components/TextMarquee.astro";
-import ArrowRight from "./icons/ArrowRight.astro";
 
 interface Props {
   images: Image[];
@@ -17,32 +16,31 @@ interface Props {
 const { title, text, cta, images, marqueeTexts } = Astro.props;
 ---
 
-<section class="relative pt-32">
+<section class="relative mt-32">
   <div
     class="relative z-10 mx-auto max-w-7xl
       flex flex-row-reverse items-center gap-20"
   >
     <!-- Texto -->
     <div class="flex flex-col items-start flex-1 py-4 order-1">
-      <h2 class="max-w-[10em] mb-4 text-6xl leading-none uppercase">
+      <h2
+        class="font-family-tight font-regular text-5xl md:text-7xl tracking-tighter text-balance mb-4"
+      >
         {title}
       </h2>
 
-      {text && <p class="max-w-md text-foreground/80 text-xl">{text}</p>}
+      {text && <p class="max-w-md text-foreground/80 text-xl mb-6">{text}</p>}
 
       {
         cta && (
-          <div class="mt-6">
-            <a
-              id="cta-btn"
-              href="#servicios"
-              class="inline-flex items-center gap-2 bg-gradient-to-r from-secondary to-primary text-foreground font-bold py-3 px-8 rounded-lg text-lg shadow-md transition-all duration-300"
-              data-aos="fade-up"
-              data-aos-delay="400"
-            >
-              Descubre Cómo
-              <ArrowRight class="w-5 h-5" />
-            </a>
+          <div class="flex">
+            <Button
+              {...cta}
+              size="lg"
+              arrow
+              revealable={false}
+              class="self-start"
+            />
           </div>
         )
       }
