@@ -15,8 +15,8 @@ const { post, index } = Astro.props;
 
   <a href={`/blog/${post.slug}`}>
     <img
-      src={post.imageUrl}
-      alt={post.title}
+      src={post.data.imageUrl}
+      alt={post.data.title}
       class="w-full h-48 object-cover"
     />
   </a>
@@ -45,18 +45,35 @@ const { post, index } = Astro.props;
   </div>
 </article>
 
-<!-- Script separado -->
+<style>
+  .card {
+    --glow-color: rgba(0, 0, 0, 0.08);
+  }
+
+  :global([data-theme="dark"]) .card {
+    --glow-color: rgba(255, 255, 255, 0.15);
+  }
+</style>
+
 <script is:inline>
   document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".card").forEach((card) => {
       const glow = card.querySelector(".glow");
+      if (!glow) return;
 
       card.addEventListener("mousemove", (e) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
-        glow.style.background = `radial-gradient(circle 600px at ${x}px ${y}px, rgba(255,255,255,0.15), transparent 70%)`;
+        // Detectar si el tema es dark
+        const isDark =
+          document.documentElement.getAttribute("data-theme") === "dark";
+        const glowColor = isDark
+          ? "rgba(255, 255, 255, 0.15)"
+          : "rgba(0, 0, 0, 0.08)";
+
+        glow.style.background = `radial-gradient(circle 600px at ${x}px ${y}px, ${glowColor}, transparent 70%)`;
       });
 
       card.addEventListener("mouseleave", () => {

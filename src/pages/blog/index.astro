@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/BaseLayout.astro";
 import BlogPostPreview from "../../components/BlogPostPreview.astro";
+import HeroPaginas from "../../components/HeroSection/HeroPaginas.astro";
 
 const posts = (await getCollection("blog"))
   .filter((p) => !p.data.draft)
@@ -11,17 +12,17 @@ const posts = (await getCollection("blog"))
 <Layout title="Blog" description="Últimos artículos">
   <div class="bg-dark-bg px-10 md:px-15">
     <!-- HERO -->
-    <section class="bg-dark-bg text-white py-10">
+    <section class="bg-dark-bg py-10">
       <div class="container mx-auto px-6">
         <h1
-          class="font-family-tight font-semibold text-6xl md:text-8xl leading-[1.03] tracking-tighter text-balance"
+          class="font-family-tight font-regular text-5xl md:text-7xl leading-[1.03] tracking-tighter text-balance"
         >
           Impulsamos tu transformación digital con diseño, estrategia y
           tecnología.
         </h1>
 
         <p
-          class="mt-6 text-lg md:text-xl font-['Inter'] font-medium text-gray-400 max-w-2xl"
+          class="text-lg md:text-xl text-center md:text-left text-foreground/80 max-w-3xl mt-4"
         >
           Somos una consultora digital que acompaña a empresas y startups en su
           evolución, combinando creatividad, datos y automatización.

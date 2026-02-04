@@ -16,7 +16,7 @@ interface Props {
 const { title, text, cta, images, marqueeTexts } = Astro.props;
 ---
 
-<section class="relative mt-32">
+<section class="relative pt-32">
   <div
     class="relative z-10 mx-auto max-w-7xl
       flex flex-row-reverse items-center gap-20"
@@ -47,7 +47,7 @@ const { title, text, cta, images, marqueeTexts } = Astro.props;
     </div>
 
     <!-- Galería -->
-    <Gallery class="h-[22rem] max-w-[32rem] order-2" images={images} />
+    <Gallery class="h-88 max-w-lg md:order-2" images={images} />
   </div>
 
   <!-- Marquee SIEMPRE abajo -->

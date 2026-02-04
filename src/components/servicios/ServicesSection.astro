@@ -1,117 +1,45 @@
 ---
-const services = [
-  {
-    title: "Consultoría Digital",
-    description:
-      "Acompañamos a las empresas en la toma de decisiones tecnológicas, analizando procesos, sistemas y necesidades reales.",
-    items: [
-      "Relevamiento de procesos",
-      "Análisis de sistemas existentes",
-      "Definición de soluciones",
-      "Acompañamiento técnico",
-    ],
-  },
-  {
-    title: "Soluciones sobre Flow",
-    description:
-      "Soporte, implementación y acompañamiento funcional sobre el sistema Flow.",
-    items: [
-      "Soporte funcional y técnico",
-      "Administración de datos",
-      "Reportes y visualización",
-      "Gestión de requerimientos",
-    ],
-  },
-  {
-    title: "Sistemas de Gestión (Tango y otros)",
-    description:
-      "Acompañamos la adopción y el uso de sistemas de gestión, integrándolos con otros procesos.",
-    items: [
-      "Soporte funcional",
-      "Integraciones",
-      "Reportes personalizados",
-      "Optimización de procesos",
-    ],
-  },
-  {
-    title: "Desarrollo de Software",
-    description:
-      "Desarrollamos soluciones a medida para automatizar procesos e integrar sistemas.",
-    items: [
-      "Aplicaciones internas",
-      "APIs e integraciones",
-      "Automatización",
-      "Documentación y capacitación",
-    ],
-  },
-  {
-    title: "Desarrollo Web",
-    description:
-      "Diseño y desarrollo de sitios web y sistemas web alineados a objetivos de negocio.",
-    items: [
-      "Web institucional",
-      "Sistemas web",
-      "Landing pages",
-      "Soporte post-entrega",
-    ],
-  },
-  {
-    title: "Capacitación y Soporte",
-    description:
-      "Capacitamos equipos y brindamos soporte continuo para asegurar la adopción de las soluciones.",
-    items: [
-      "Capacitación funcional",
-      "Aulas virtuales",
-      "Documentación",
-      "Soporte recurrente",
-    ],
-  },
-];
+import { services } from "./servicios";
+import HeroPaginas from "../HeroSection/HeroPaginas.astro";
+import CardServices from "./CardServices.astro";
 ---
 
-<section class="relative py-24 bg-neutral-950 text-neutral-100">
+<section class="relative py-24">
   <div class="max-w-7xl mx-auto px-6">
     <!-- HERO -->
-    <div class="max-w-3xl mb-20 animate-on-scroll">
-      <h2 class="text-4xl md:text-5xl font-semibold leading-tight">
-        Consultoría digital para acompañar el crecimiento de tu empresa
-      </h2>
-      <p class="mt-6 text-lg text-neutral-300">
-        Implementamos, desarrollamos e integramos soluciones tecnológicas según
-        la necesidad real de tu negocio.
-      </p>
-    </div>
-
+    <HeroPaginas
+      title="Consultoría digital para acompañar el crecimiento de tu empresa"
+      text="Implementamos, desarrollamos e integramos soluciones tecnológicas según la necesidad real de tu negocio."
+    />
     <!-- SERVICES GRID -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {
         services.map((service) => (
-          <div class="service-card animate-on-scroll">
-            <h3 class="text-xl font-semibold mb-3">{service.title}</h3>
-            <p class="text-neutral-300 mb-4">{service.description}</p>
-            <ul class="space-y-2 text-sm text-neutral-400">
-              {service.items.map((item) => (
-                <li class="flex gap-2">
-                  <span class="text-primary">•</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <CardServices
+            title={service.title}
+            description={service.description}
+            items={service.items}
+            Icon={service.icon}
+          />
         ))
       }
     </div>
 
     <!-- CTA -->
     <div class="mt-24 text-center animate-on-scroll">
-      <h3 class="text-2xl font-semibold mb-4">
+      <h3
+        class="font-family-tight
+                    text-5xl
+                    tracking-tight
+                    mb-6"
+      >
         ¿Necesitás mejorar o integrar tus sistemas?
       </h3>
       <a
         href="/contacto"
-        class="inline-block mt-4 px-8 py-3 rounded-xl bg-primary text-neutral-950 font-medium transition hover:scale-105"
+        class="inline-block mt-4 px-8 py-3 rounded-xl bg-primary btn btn-primary text-xl font-medium transition hover:scale-105"
       >
-        Hablemos de tu proyecto
+        Contanos de tu proyecto
       </a>
     </div>
   </div>
@@ -147,19 +75,5 @@ const services = [
   .animate-on-scroll.in-view {
     opacity: 1;
     transform: translateY(0);
-  }
-
-  .service-card {
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 1.25rem;
-    padding: 1.75rem;
-    transition:
-      transform 0.3s ease,
-      background 0.3s ease;
-  }
-
-  .service-card:hover {
-    transform: translateY(-6px);
-    background: rgba(255, 255, 255, 0.06);
   }
 </style>

@@ -1,0 +1,145 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  items: string[];
+  Icon: any;
+}
+
+const { title, description, items, Icon } = Astro.props;
+---
+
+<div
+  class="service-card relative rounded-2xl p-7 bg-card border border-border transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 transform hover:-translate-y-2 overflow-hidden h-full flex flex-col"
+>
+  <div class="glow absolute inset-0 pointer-events-none"></div>
+
+  <div class="relative z-10 flex flex-col h-full">
+    <!-- Título -->
+    <div class="flex items-start gap-3 mb-3 card-title">
+      {Icon && <Icon class="w-6 h-6 text-primary shrink-0 mt-1" />}
+      <h3 class="text-xl font-semibold">{title}</h3>
+    </div>
+
+    <!-- Descripción -->
+    <p class="mb-4 text-muted-foreground card-description">{description}</p>
+
+    <!-- Lista -->
+    <ul class="space-y-2 text-sm flex-1">
+      {
+        items.map((item) => (
+          <li class="flex gap-2">
+            <span class="text-primary shrink-0">•</span>
+            <span class="text-foreground/80">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
+
+<style>
+  .service-card {
+    --glow-color-light: rgba(0, 0, 0, 0.06);
+    --glow-color-dark: rgba(255, 255, 255, 0.12);
+  }
+
+  :global([data-theme="dark"]) .service-card {
+    --glow-color: var(--glow-color-dark);
+  }
+
+  :global([data-theme="light"]) .service-card {
+    --glow-color: var(--glow-color-light);
+  }
+
+  /* Animación inicial */
+  .service-card {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.6s ease-out,
+      transform 0.6s ease-out;
+  }
+
+  .service-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Función para igualar alturas
+    function equalizeHeights() {
+      const titles = document.querySelectorAll(".card-title");
+      const descriptions = document.querySelectorAll(".card-description");
+
+      // Reset heights
+      titles.forEach((el) => (el.style.height = "auto"));
+      descriptions.forEach((el) => (el.style.height = "auto"));
+
+      // Calcular altura máxima de títulos
+      let maxTitleHeight = 0;
+      titles.forEach((el) => {
+        const height = el.offsetHeight;
+        if (height > maxTitleHeight) maxTitleHeight = height;
+      });
+
+      // Calcular altura máxima de descripciones
+      let maxDescHeight = 0;
+      descriptions.forEach((el) => {
+        const height = el.offsetHeight;
+        if (height > maxDescHeight) maxDescHeight = height;
+      });
+
+      // Aplicar alturas máximas
+      titles.forEach((el) => (el.style.height = `${maxTitleHeight}px`));
+      descriptions.forEach((el) => (el.style.height = `${maxDescHeight}px`));
+    }
+
+    // Efecto Glow
+    document.querySelectorAll(".service-card").forEach((card) => {
+      const glow = card.querySelector(".glow");
+      if (!glow) return;
+
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Detectar tema
+        const isDark =
+          document.documentElement.getAttribute("data-theme") === "dark";
+        const glowColor = isDark
+          ? "rgba(255, 255, 255, 0.12)"
+          : "rgba(0, 0, 0, 0.06)";
+
+        glow.style.background = `radial-gradient(circle 500px at ${x}px ${y}px, ${glowColor}, transparent 70%)`;
+      });
+
+      card.addEventListener("mouseleave", () => {
+        glow.style.background = "none";
+      });
+    });
+
+    // Intersection Observer para animación de entrada
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.2 },
+    );
+
+    document
+      .querySelectorAll(".service-card")
+      .forEach((el) => observer.observe(el));
+
+    // Igualar alturas al cargar y al redimensionar
+    equalizeHeights();
+    window.addEventListener("resize", equalizeHeights);
+  });
+</script>
