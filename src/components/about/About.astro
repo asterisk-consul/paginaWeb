@@ -2,15 +2,15 @@
 import Target from "../icons/Target.astro";
 import Users from "../icons/Users.astro";
 import Zap from "../icons/Zap.astro";
-import TeamSection from "./TeamSection.astro"; // tu versión convertida antes
-
-// Elementos a animar
-const fadeItems = [
-  { selector: "#title", delay: 0 },
-  { selector: "#subtitle", delay: 200 },
-];
+import Award from "../icons/Award.astro";
+import TrendingUp from "../icons/TrendingUp.astro";
+import Shield from "../icons/Shield.astro";
+import Code from "../icons/Code.astro";
+import Lightbulb from "../icons/Lightbulb.astro";
+import Heart from "../icons/Heart.astro";
 ---
 
+<!-- HERO -->
 <div class="animate-fade-in">
   <!-- HERO -->
   <section class="py-20 md:py-28 bg-dark-card">
@@ -37,72 +37,303 @@ const fadeItems = [
     </div>
   </section>
 
-  <!-- CARDS -->
-  <section class="py-20">
-    <div class="container mx-auto px-6 grid md:grid-cols-3 gap-10 text-center">
-      <div
-        class="border border-dark-border p-8 rounded-xl motion-card opacity-0 translate-y-12"
+  <!-- VALORES PRINCIPALES -->
+  <section class="py-20 bg-background">
+    <div class="container mx-auto px-6">
+      <h2
+        id="values-title"
+        class="font-family-tight text-4xl md:text-5xl tracking-tighter text-center mb-16 opacity-0 translate-y-12"
       >
-        <Target class="w-12 h-12 text-brand-primary mx-auto mb-4" />
-        <h3 class="text-2xl font-bold text-foreground mb-2">Visión</h3>
-        <p class="text-foreground/80">
-          Ser el socio estratégico líder en la transformación digital de
-          procesos empresariales en Latinoamérica.
-        </p>
-      </div>
+        Nuestros Pilares
+      </h2>
 
-      <div
-        class="border border-dark-border p-8 rounded-xl bg-dark-card motion-card opacity-0 translate-y-12"
-      >
-        <Users class="w-12 h-12 text-brand-primary mx-auto mb-4" />
-        <h3 class="text-2xl font-bold text-foreground mb-2">Filosofía</h3>
-        <p class="text-foreground/80">
-          Creemos en la colaboración estrecha, la transparencia total y la
-          entrega de resultados medibles.
-        </p>
-      </div>
+      <div class="grid md:grid-cols-3 gap-10 pb-32">
+        <div
+          class="border border-border p-8 rounded-2xl bg-card motion-card card-elevated opacity-0 translate-y-12 hover:border-primary/50 transition-all duration-300"
+        >
+          <Target class="w-12 h-12 text-primary mx-auto mb-4" />
+          <h3 class="text-2xl font-bold text-foreground mb-3 text-center">
+            Visión
+          </h3>
+          <p class="text-foreground/80 text-center">
+            Ser el socio estratégico líder en la transformación digital de
+            procesos empresariales en Latinoamérica, creando un ecosistema donde
+            la tecnología y la innovación impulsen el éxito de cada cliente.
+          </p>
+        </div>
 
-      <div
-        class="border border-dark-border p-8 rounded-xl motion-card opacity-0 translate-y-12"
-      >
-        <Zap class="w-12 h-12 text-brand-primary mx-auto mb-4" />
-        <h3 class="text-2xl font-bold text-foreground mb-2">Enfoque</h3>
-        <p class="text-foreground/80">
-          Combinamos tecnología con un profundo entendimiento del negocio para
-          crear soluciones con impacto real.
-        </p>
+        <div
+          class="border border-border p-8 rounded-2xl bg-card motion-card card-elevated opacity-0 translate-y-12 hover:border-primary/50 transition-all duration-300"
+        >
+          <Users class="w-12 h-12 text-primary mx-auto mb-4" />
+          <h3 class="text-2xl font-bold text-foreground mb-3 text-center">
+            Filosofía
+          </h3>
+          <p class="text-foreground/80 text-center">
+            Creemos en la colaboración estrecha, la transparencia total y la
+            entrega de resultados medibles. Cada proyecto es una oportunidad
+            para crear valor real y duradero.
+          </p>
+        </div>
+
+        <div
+          class="border border-border p-8 rounded-2xl bg-card motion-card card-elevated opacity-0 translate-y-12 hover:border-primary/50 transition-all duration-300"
+        >
+          <Zap class="w-12 h-12 text-primary mx-auto mb-4" />
+          <h3 class="text-2xl font-bold text-foreground mb-3 text-center">
+            Enfoque
+          </h3>
+          <p class="text-foreground/80 text-center">
+            Combinamos tecnología de vanguardia con un profundo entendimiento
+            del negocio para crear soluciones que generan impacto real, medible
+            y sostenible en el tiempo.
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
-  <TeamSection />
+  <!-- VALORES CORPORATIVOS -->
+  <section class="py-20 pb-20 bg-card">
+    <div class="container mx-auto px-6">
+      <h2
+        id="corporate-title"
+        class="font-family-tight text-4xl md:text-5xl tracking-tighter text-center mb-4 opacity-0 translate-y-12"
+      >
+        Nuestros Valores
+      </h2>
+      <p
+        id="corporate-subtitle"
+        class="text-center text-foreground/70 max-w-2xl mx-auto mb-16 opacity-0 translate-y-12"
+      >
+        Los principios que guían cada decisión y acción en nuestra organización
+      </p>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 pb-32">
+        <div class="motion-card opacity-0 translate-y-12">
+          <div class="flex items-start gap-4">
+            <div class="bg-primary/10 p-3 rounded-lg flex-shrink-0">
+              <Award class="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <h4 class="text-xl font-semibold mb-2">Excelencia</h4>
+              <p class="text-foreground/80">
+                Nos comprometemos con la calidad en cada línea de código, cada
+                diseño y cada interacción con nuestros clientes.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="motion-card opacity-0 translate-y-12">
+          <div class="flex items-start gap-4">
+            <div class="bg-primary/10 p-3 rounded-lg flex-shrink-0">
+              <Lightbulb class="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <h4 class="text-xl font-semibold mb-2">Innovación</h4>
+              <p class="text-foreground/80">
+                Exploramos constantemente nuevas tecnologías y metodologías para
+                ofrecer soluciones de vanguardia.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="motion-card opacity-0 translate-y-12">
+          <div class="flex items-start gap-4">
+            <div class="bg-primary/10 p-3 rounded-lg flex-shrink-0">
+              <Shield class="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <h4 class="text-xl font-semibold mb-2">Confianza</h4>
+              <p class="text-foreground/80">
+                Construimos relaciones duraderas basadas en la transparencia, la
+                honestidad y el cumplimiento de nuestros compromisos.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="motion-card opacity-0 translate-y-12">
+          <div class="flex items-start gap-4">
+            <div class="bg-primary/10 p-3 rounded-lg flex-shrink-0">
+              <TrendingUp class="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <h4 class="text-xl font-semibold mb-2">Resultados</h4>
+              <p class="text-foreground/80">
+                Nos enfocamos en entregar valor tangible y medible que impulse
+                el crecimiento de tu negocio.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="motion-card opacity-0 translate-y-12">
+          <div class="flex items-start gap-4">
+            <div class="bg-primary/10 p-3 rounded-lg flex-shrink-0">
+              <Code class="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <h4 class="text-xl font-semibold mb-2">Tecnología</h4>
+              <p class="text-foreground/80">
+                Dominamos las herramientas más modernas y eficientes para crear
+                soluciones escalables y robustas.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="motion-card opacity-0 translate-y-12">
+          <div class="flex items-start gap-4">
+            <div class="bg-primary/10 p-3 rounded-lg flex-shrink-0">
+              <Heart class="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <h4 class="text-xl font-semibold mb-2">Pasión</h4>
+              <p class="text-foreground/80">
+                Amamos lo que hacemos y eso se refleja en cada proyecto que
+                entregamos a nuestros clientes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPROMISO -->
+  <section class="py-20 bg-background">
+    <div class="container mx-auto px-6">
+      <div class="max-w-4xl mx-auto pb-32">
+        <h2
+          id="commitment-title"
+          class="font-family-tight text-4xl md:text-5xl tracking-tighter text-center mb-8 opacity-0 translate-y-12"
+        >
+          Nuestro Compromiso
+        </h2>
+        <div
+          id="commitment-content"
+          class="bg-card border border-border rounded-2xl p-8 md:p-12 card-elevated opacity-0 translate-y-12"
+        >
+          <p class="text-lg text-foreground/90 mb-6 leading-relaxed">
+            En cada proyecto que emprendemos, nos comprometemos a ir más allá de
+            las expectativas. No solo entregamos código o diseños, entregamos
+            soluciones que transforman la manera en que nuestros clientes operan
+            y crecen.
+          </p>
+          <p class="text-lg text-foreground/90 mb-6 leading-relaxed">
+            Entendemos que detrás de cada proyecto hay personas, equipos y
+            objetivos de negocio reales. Por eso, nos involucramos profundamente
+            en comprender tu industria, tus desafíos y tus metas.
+          </p>
+          <p class="text-lg text-foreground/90 leading-relaxed">
+            Nuestro éxito se mide por el tuyo. Cuando tus procesos mejoran,
+            cuando tus equipos son más productivos, cuando tus clientes están
+            más satisfechos, sabemos que hemos cumplido nuestra misión.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESTADÍSTICAS O LOGROS (OPCIONAL) -->
+  <section class="py-10 bg-background">
+    <div class="container mx-auto px-6 pb-32">
+      <div class="grid md:grid-cols-3 gap-12 text-center">
+        <div class="motion-card opacity-0 translate-y-12">
+          <div class="text-5xl md:text-6xl font-bold text-primary mb-2">5+</div>
+          <p class="text-foreground/70 text-lg">Años de experiencia</p>
+        </div>
+        <div class="motion-card opacity-0 translate-y-12">
+          <div class="text-5xl md:text-6xl font-bold text-primary mb-2">
+            50+
+          </div>
+          <p class="text-foreground/70 text-lg">Proyectos completados</p>
+        </div>
+        <div class="motion-card opacity-0 translate-y-12">
+          <div class="text-5xl md:text-6xl font-bold text-primary mb-2">
+            98%
+          </div>
+          <p class="text-foreground/70 text-lg">Satisfacción del cliente</p>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 
 <script>
   import { inView, animate } from "@motionone/dom";
 
-  // Animación del título y subtítulo
+  // Animación del título y subtítulo del hero
   const fadeItems = [
     { selector: "#title", delay: 0 },
     { selector: "#subtitle", delay: 200 },
   ];
 
   fadeItems.forEach(({ selector, delay }) => {
-    inView(selector, ({ target }) => {
+    const element = document.querySelector(selector);
+    if (element) {
+      inView(selector, ({ target }) => {
+        animate(
+          target,
+          { opacity: 1, transform: "translateY(0)" },
+          { duration: 0.6, delay: delay / 1000, easing: "ease-out" },
+        );
+      });
+    }
+  });
+
+  // Animación de títulos de secciones
+  const sectionTitles = [
+    "#values-title",
+    "#corporate-title",
+    "#corporate-subtitle",
+    "#commitment-title",
+    "#commitment-content",
+  ];
+
+  sectionTitles.forEach((selector) => {
+    const element = document.querySelector(selector);
+    if (element) {
+      inView(selector, ({ target }) => {
+        animate(
+          target,
+          { opacity: 1, transform: "translateY(0)" },
+          { duration: 0.6, easing: "ease-out" },
+        );
+      });
+    }
+  });
+
+  // Animación de las tarjetas con stagger
+  const cards = document.querySelectorAll(".motion-card");
+  cards.forEach((card, index) => {
+    inView(card, ({ target }) => {
       animate(
         target,
         { opacity: 1, transform: "translateY(0)" },
-        { duration: 0.6, delay: delay / 1000, easing: "ease-out" }
+        {
+          duration: 0.6,
+          delay: index * 0.1,
+          easing: "ease-out",
+        },
       );
     });
   });
-
-  // Animación de las tarjetas
-  inView(".motion-card", ({ target }) => {
-    animate(
-      target,
-      { opacity: 1, transform: "translateY(0)" },
-      { duration: 0.6, easing: "ease-out" }
-    );
-  });
 </script>
+<style>
+  .card-elevated {
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.25),
+      0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  .card-elevated:hover {
+    box-shadow:
+      0 4px 12px rgba(0, 0, 0, 0.35),
+      0 16px 40px rgba(0, 0, 0, 0.45);
+    transform: translateY(-2px);
+  }
+</style>

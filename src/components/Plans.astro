@@ -63,27 +63,28 @@ const { title, subtitle, items } = Astro.props;
         justify-center
         items-stretch
       "
+      id="pricing-plans"
     >
       {
         items.map((item, i) => (
           <div
             class={`
+              pricing-card
               relative
               rounded-2xl
-              p-[2px]
               max-w-sm
               w-full
-              ${
-                i === 1
-                  ? "plan-highlight"
-                  : "bg-card border border-border"
-              }
+              cursor-pointer
+              transition-all
+              duration-300
+              ${i === 1 ? "plan-highlight p-[2px]" : "bg-card border border-border"}
             `}
+            data-plan-index={i}
           >
             <div
               class="
                 bg-card
-                rounded-[14px]
+                rounded-2xl
                 p-8
                 h-full
                 flex
@@ -142,13 +143,14 @@ const { title, subtitle, items } = Astro.props;
                           h-2
                           w-2
                           rounded-full
+                          flex-shrink-0
                           ${
                             feat.disabled
                               ? "bg-foreground/30"
                               : "bg-primary"
                           }
                         `}
-                      ></span>
+                      />
                       {feat.title}
                     </li>
                   ))
@@ -160,6 +162,7 @@ const { title, subtitle, items } = Astro.props;
                 <Button
                   {...item.link}
                   color={i === 0 ? "primary-alt" : "primary"}
+                  class="w-full"
                 />
               </div>
             </div>
@@ -171,22 +174,81 @@ const { title, subtitle, items } = Astro.props;
 </section>
 
 <style>
-@keyframes plan-border {
-  to {
-    transform: rotate(360deg);
+  @keyframes plan-border {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
-}
 
-.plan-highlight::before {
-  content: "";
-  position: absolute;
-  inset: -50%;
-  background: linear-gradient(
-    135deg,
-    hsl(var(--secondary)),
-    hsl(var(--primary))
-  );
-  animation: plan-border 6s linear infinite;
-  z-index: -1;
-}
+  @keyframes plan-glow {
+    0%, 100% {
+      box-shadow: 
+        0 0 20px hsla(var(--primary) / 0.3),
+        0 0 40px hsla(var(--secondary) / 0.2),
+        0 0 60px hsla(var(--primary) / 0.1);
+    }
+    50% {
+      box-shadow: 
+        0 0 30px hsla(var(--primary) / 0.5),
+        0 0 60px hsla(var(--secondary) / 0.3),
+        0 0 90px hsla(var(--primary) / 0.2);
+    }
+  }
+
+  .plan-highlight {
+    position: relative;
+    background: hsl(var(--card));
+    overflow: hidden;
+    animation: plan-glow 3s ease-in-out infinite;
+  }
+
+  .plan-highlight::before {
+    content: "";
+    position: absolute;
+    inset: -100%;
+    background: conic-gradient(
+      from 0deg at 50% 50%,
+      hsl(var(--primary)),
+      hsl(var(--secondary)),
+      hsl(var(--primary))
+    );
+    animation: plan-border 6s linear infinite;
+  }
+
+  .plan-highlight > div {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Hover suave en cards sin highlight */
+  .pricing-card:not(.plan-highlight):hover {
+    transform: translateY(-4px);
+    box-shadow: 
+      0 4px 20px rgba(0, 0, 0, 0.1),
+      0 0 15px hsla(var(--primary) / 0.1);
+  }
 </style>
+
+<script>
+  const pricingPlans = document.getElementById('pricing-plans');
+  const cards = document.querySelectorAll('.pricing-card');
+
+  if (pricingPlans && cards.length > 0) {
+    cards.forEach((card) => {
+      card.addEventListener('click', () => {
+        // Remover highlight de todas las cards
+        cards.forEach((c) => {
+          c.classList.remove('plan-highlight', 'p-[2px]');
+          c.classList.add('bg-card', 'border', 'border-border');
+        });
+
+        // Agregar highlight a la card clickeada
+        card.classList.add('plan-highlight', 'p-[2px]');
+        card.classList.remove('bg-card', 'border', 'border-border');
+      });
+    });
+  }
+</script>

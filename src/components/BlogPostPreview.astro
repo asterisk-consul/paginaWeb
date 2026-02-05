@@ -5,10 +5,16 @@ export interface Props {
 }
 
 const { post, index } = Astro.props;
+
+const fechaES = new Intl.DateTimeFormat("es-ES", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+}).format(post.data.pubDate);
 ---
 
 <article
-  class="card relative block rounded-xl overflow-hidden border border-border bg-card group transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 transform hover:-translate-y-2"
+  class="card relative rounded-xl overflow-hidden border border-border bg-card transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/20 h-full flex flex-col"
   data-index={index}
 >
   <div class="glow absolute inset-0 pointer-events-none"></div>
@@ -21,24 +27,27 @@ const { post, index } = Astro.props;
     />
   </a>
 
-  <div class="p-6 relative z-10">
-    <p class="text-sm text-muted-foreground mb-2">
-      {post.data.pubDate.toDateString()}
+  <!-- CONTENIDO -->
+  <div class="p-6 relative z-10 flex flex-col flex-1">
+    <p class="text-sm text-muted-foreground mb-2 capitalize">
+      {fechaES}
     </p>
 
     <a href={`/blog/${post.slug}`}>
-      <h3
-        class="text-2xl font-medium group-hover:text-primary transition-colors"
-      >
+      <h3 class="text-2xl font-medium transition-colors hover:text-primary">
         {post.data.title}
       </h3>
     </a>
 
-    <p class="text-muted-foreground mb-4">{post.data.description}</p>
+    <!-- DESCRIPCIÓN LIMITADA A 4 LÍNEAS -->
+    <p class="description text-muted-foreground mt-3">
+      {post.data.description}
+    </p>
 
+    <!-- CTA SIEMPRE ABAJO -->
     <a
       href={`/blog/${post.slug}`}
-      class="inline-flex items-center gap-2 text-primary font-semibold"
+      class="mt-auto inline-flex items-center gap-2 text-primary font-semibold pt-4"
     >
       Leer más →
     </a>
@@ -46,6 +55,13 @@ const { post, index } = Astro.props;
 </article>
 
 <style>
+  .description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+  }
+
   .card {
     --glow-color: rgba(0, 0, 0, 0.08);
   }

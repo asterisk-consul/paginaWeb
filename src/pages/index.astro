@@ -83,51 +83,91 @@ import ChartSpline from "@/components/icons/chart-spline.astro";
       },
     ]}
     marqueeTexts={[
-      "Ingeniería Nacional",
-      "Diseño Industrial",
-      "Alta Productividad",
-      "Procesos Confiables",
+      "Consultoría Digital",
+      "Ingeniería de Procesos",
+      "Sistemas que Escalan",
+      "Tecnología con Criterio",
     ]}
   />
 
   <Plans
-    title="Plans & Pricing"
-    subtitle="Start for free, upgrade when you’re ready. No hidden fees, no long-term commitments."
+    title="Planes de Soporte"
+    subtitle="Soporte, acompañamiento y desarrollo adaptados a la operación de tu empresa."
     items={[
       {
-        title: "Free Plan",
+        title: "Soporte Básico",
         price: {
-          amount: "$0",
-          duration: "month",
+          amount: "USD 207",
+          duration: "mes",
         },
         link: {
-          title: "Get Started Free",
-          url: "#",
+          title: "Consultar plan",
+          url: "/contacto",
         },
         features: [
-          { title: "Up to 50 accounts" },
-          { title: "Unlimited projects" },
-          { title: "Chat support", disabled: true },
-          { title: "Email support", disabled: true },
-          { title: "Custom onboarding", disabled: true },
+          { title: "12 horas semanales de soporte" },
+          { title: "Acompañamiento funcional y técnico" },
+          { title: "Consultas y resolución de incidencias" },
+          { title: "Reunión semanal de seguimiento" },
+          { title: "Resumen periódico de horas consumidas" },
+          { title: "Soporte exclusivo", disabled: true },
         ],
       },
       {
-        title: "Premium Plan",
+        title: "Soporte Estándar",
         price: {
-          amount: "$20",
-          duration: "month",
+          amount: "USD 413",
+          duration: "mes",
         },
         link: {
-          title: "Start 14-Day Trial",
-          url: "#",
+          title: "Consultar plan",
+          url: "/contacto",
         },
         features: [
-          { title: "Up to 50 accounts" },
-          { title: "Unlimited projects" },
-          { title: "Priority chat support" },
-          { title: "Email support" },
-          { title: "Custom onboarding assistance" },
+          { title: "24 horas semanales de soporte" },
+          { title: "Acompañamiento funcional y técnico" },
+          { title: "Gestión de requerimientos y prioridades" },
+          { title: "Reunión semanal de seguimiento" },
+          { title: "Resumen detallado de horas" },
+          { title: "Soporte exclusivo", disabled: true },
+        ],
+      },
+      {
+        title: "Soporte Avanzado",
+        price: {
+          amount: "USD 620",
+          duration: "mes",
+        },
+        link: {
+          title: "Consultar plan",
+          url: "/contacto",
+        },
+        features: [
+          { title: "48 horas semanales de soporte" },
+          { title: "Alta prioridad de atención" },
+          { title: "Acompañamiento en procesos y adopción" },
+          { title: "Reunión semanal de seguimiento" },
+          { title: "Resumen detallado de horas" },
+          { title: "Soporte exclusivo", disabled: true },
+        ],
+      },
+      {
+        title: "Soporte Exclusivo",
+        price: {
+          amount: "USD 1.033",
+          duration: "mes",
+        },
+        link: {
+          title: "Hablar con un asesor",
+          url: "/contacto",
+        },
+        features: [
+          { title: "Soporte dedicado" },
+          { title: "Priorización total de requerimientos" },
+          { title: "Acompañamiento continuo" },
+          { title: "Gestión integral de sistemas" },
+          { title: "Interlocutor técnico único" },
+          { title: "Reuniones y seguimiento permanente" },
         ],
       },
     ]}

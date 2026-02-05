@@ -1,7 +1,7 @@
 ---
 title: "Asterisk "
 description: "Definir las bases"
-imageUrl: "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?q=80&w=2070&auto=format&fit=crop"
+imageUrl: /LogoChiquitoLight.webp
 pubDate: 2026-02-04
 author: "Agustin yedro"
 tags: ["asterisk", "blog"]

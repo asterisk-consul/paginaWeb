@@ -1,0 +1,72 @@
+---
+const headings = Astro.props.headings ?? [];
+---
+
+{
+  headings.length > 0 && (
+    <aside class="sticky top-24 hidden lg:block">
+      <div class="border border-border rounded-xl p-6 bg-card">
+        <p class="font-semibold mb-4 text-foreground">En este artículo</p>
+        <nav>
+          <ul class="space-y-2.5 text-sm">
+            {headings.map((h) => (
+              <li class={h.depth === 3 ? "ml-4" : ""}>
+                <a
+                  href={`#${h.slug}`}
+                  class="text-foreground/70 hover:text-primary transition-colors block py-1 border-l-2 border-transparent hover:border-primary pl-3 -ml-3"
+                >
+                  {h.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </aside>
+  )
+}
+
+<script>
+  // Resaltar el heading actual mientras scrolleas
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const id = entry.target.getAttribute("id");
+        const tocLink = document.querySelector(`aside a[href="#${id}"]`);
+
+        if (entry.isIntersecting) {
+          // Remover active de todos
+          document.querySelectorAll("aside a").forEach((link) => {
+            link.classList.remove(
+              "text-primary",
+              "border-primary",
+              "font-medium",
+            );
+            link.classList.add("text-foreground/70", "border-transparent");
+          });
+
+          // Agregar active al actual
+          if (tocLink) {
+            tocLink.classList.remove(
+              "text-foreground/70",
+              "border-transparent",
+            );
+            tocLink.classList.add(
+              "text-primary",
+              "border-primary",
+              "font-medium",
+            );
+          }
+        }
+      });
+    },
+    { rootMargin: "-100px 0px -66%" },
+  );
+
+  // Observar todos los headings
+  document
+    .querySelectorAll(".markdown-content h2, .markdown-content h3")
+    .forEach((heading) => {
+      observer.observe(heading);
+    });
+</script>

@@ -2,6 +2,9 @@
 import FooterLogo from "./FooterLogo.astro";
 import FooterLinks from "./FooterLinks.astro";
 import FooterRedesSociales from "./FooterRedesSociales.astro";
+
+// Obtener el año actual dinámicamente
+const currentYear = new Date().getFullYear();
 ---
 
 <footer class="bg-card">
@@ -13,7 +16,8 @@ import FooterRedesSociales from "./FooterRedesSociales.astro";
     <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
     <div class="sm:flex sm:items-center sm:justify-between">
       <span class="text-sm font-family-sans text-foreground sm:text-center"
-        >© 2025 <a href="https://asteriskconsultora.com/" class="hover:underline"
+        >© {currentYear}
+        <a href="https://asteriskconsultora.com/" class="hover:underline"
           >Asterisk</a
         >. Todos los derechos reservados.
       </span>
